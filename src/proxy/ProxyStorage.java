@@ -2,19 +2,20 @@ package proxy;
 
 import parts.DevicePart;
 import parts.Storage;
+import storage.Product;
 
 /**
  * Created by Alexandr on 16.10.2017.
  */
 public class ProxyStorage extends DevicePart{
     Storage st;
-    ProxyStorage(Storage _st){
+    public ProxyStorage(Storage _st){
         st = _st;
     }
 
-    void add_products(int path, String args){
+    public void addProducts(int path, Product pr, double we){
         if(path == 1){
-            st.add_prodcuts(args);
+            st.addProducts(pr, we);
         }
     }
     
