@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 public class LabReader {
     FileReader in;
     int n,m;
+    String[] voc = {"W", "F", "SF", "TF", "STF"};
 
     public LabReader(FileReader _in){
         in = _in;
@@ -41,7 +42,7 @@ public class LabReader {
         try {
             for(int i = 1; i < n + 1; i++)
                 for(int j = 1; j < m + 1; j++)
-                    ans[i][j] = tk.next();
+                    ans[i][j] = voc[tk.nextInt()-1];
 
         }catch (Exception e){
             e.printStackTrace();

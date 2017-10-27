@@ -7,11 +7,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Trap extends Part {
-    String directory = "resources/Labyrinth/Floor/";
-    Part parent;
+public class Bones extends Part {
+    private String directory = "resources/Labyrinth/Floor/";
+    private Part parent;
 
-    public Trap(Part _p, String s){
+    public Bones(Part _p, String s){
         parent = _p;
         try{
             BufferedImage im = parent.getTexture(), tmp = ImageIO.read(new File(directory + s));
@@ -29,4 +29,5 @@ public class Trap extends Part {
     public boolean attemptMove(){
         return true;
     }
+
 }

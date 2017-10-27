@@ -111,7 +111,7 @@ public class BlockChooser {
             ans = new Trap(ans, "Trap.png");
 
         if(skeleton)
-            ans = new Skeleton(ans, "Bones.png");
+            ans = new Bones(ans, "Bones.png");
 
         return ans;
     }

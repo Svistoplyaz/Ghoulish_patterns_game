@@ -10,6 +10,7 @@ public class GameFrame extends JFrame {
         this.add(gp);
         this.pack();
 
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 }

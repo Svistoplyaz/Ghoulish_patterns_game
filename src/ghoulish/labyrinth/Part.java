@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Part {
     BufferedImage texture;
+    Part parent = null;
 
     public Part(){
 

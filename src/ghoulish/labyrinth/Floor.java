@@ -8,7 +8,7 @@ public class Floor extends Part{
 
     public Floor(String s){
         try{
-            texture = ImageIO.read(new File(s));
+            texture = ImageIO.read(new File(directory + s));
         }catch (Exception e){
             e.printStackTrace();
         }
