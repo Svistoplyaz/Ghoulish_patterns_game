@@ -1,24 +1,20 @@
 package ghoulish.labyrinth;
 
+import ghoulish.util.BlockChooser;
 import ghoulish.util.LabReader;
 
 import java.io.FileReader;
 
 public class Labyrinth {
-    Part[][] parts;
-    int n, m;
+    private Part[][] parts;
+    private int n, m;
 
-    public Labyrinth(String file){
-        LabReader lr = null;
-        try {
-            lr = new LabReader(new FileReader(file));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    public Labyrinth(){
+        BlockChooser blockChooser = new BlockChooser();
 
-        parts = lr.constructLab();
-        n = lr.getN();
-        m = lr.getM();
+        parts = blockChooser.constructLab();
+        n = blockChooser.getN();
+        m = blockChooser.getM();
     }
 
     public int getN(){

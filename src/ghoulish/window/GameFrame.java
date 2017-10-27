@@ -7,8 +7,8 @@ public class GameFrame extends JFrame {
 
     public GameFrame(){
         this.setLocation(20,20);
-        this.setSize(gp.getWidth(),gp.getHeight());
         this.add(gp);
+        this.pack();
 
         this.setVisible(true);
     }

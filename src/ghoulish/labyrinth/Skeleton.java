@@ -3,11 +3,14 @@ package ghoulish.labyrinth;
 import javax.imageio.ImageIO;
 import java.io.File;
 
-public class Road extends Part{
+public class Skeleton extends Part {
+    String directory = "resources/Labyrinth/Floor/";
+    Part parent;
 
-    public Road(){
+    public Skeleton(Part _p, String s){
+        parent = _p;
         try{
-            texture = ImageIO.read(new File("resources/", "Road.png"));
+            texture = ImageIO.read(new File(s));
         }catch (Exception e){
             e.printStackTrace();
         }

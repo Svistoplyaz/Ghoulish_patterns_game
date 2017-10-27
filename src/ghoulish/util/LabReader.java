@@ -1,7 +1,6 @@
 package ghoulish.util;
 
-import ghoulish.labyrinth.GreatWall;
-import ghoulish.labyrinth.Part;
+import ghoulish.labyrinth.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,32 +15,34 @@ public class LabReader {
         in = _in;
     }
 
-    public Part[][] constructLab(){
+    public String[][] fillLab(){
         Tokenizer tk = new Tokenizer(in);
-        Part[][] ans = null;
+        String[][] ans;
+
         try {
             n = tk.nextInt();
             m = tk.nextInt();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-             ans = new Part[n+2][m+2];
+        ans = new String[n+2][m+2];
 
-            for(int i = 0; i < n + 2; i++){
-                ans[i][0] = new GreatWall();
-                ans[i][m+1] = new GreatWall();
-            }
+        for(int i = 0; i < m + 2; i++){
+            ans[0][i] = "W";
+            ans[n + 1][i] = "W";
+        }
 
-            for(int i = 0; i < m + 2; i++){
-                ans[0][i] = new GreatWall();
-                ans[n+1][i] = new GreatWall();
-            }
+        for(int i = 0; i < n + 2; i++){
+            ans[i][0] = "W";
+            ans[i][m + 1] = "W";
+        }
 
-            BlockChooser bc = new BlockChooser();
+        try {
+            for(int i = 1; i < n + 1; i++)
+                for(int j = 1; j < m + 1; j++)
+                    ans[i][j] = tk.next();
 
-            for(int i = 1; i < n + 1; i++){
-                for (int j = 1; j < m + 1; j++){
-                    ans[i][j] = bc.chooseBlock(tk.nextInt());
-                }
-            }
         }catch (Exception e){
             e.printStackTrace();
         }

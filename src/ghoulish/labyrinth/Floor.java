@@ -3,17 +3,18 @@ package ghoulish.labyrinth;
 import javax.imageio.ImageIO;
 import java.io.File;
 
-public class GreatWall extends Part {
+public class Floor extends Part{
+    String directory = "resources/Labyrinth/Floor/";
 
-    public GreatWall(){
+    public Floor(String s){
         try{
-            texture = ImageIO.read(new File("resources/", "GreatWall.png"));
+            texture = ImageIO.read(new File(s));
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
     public boolean attemptMove(){
-        return false;
+        return true;
     }
 }
