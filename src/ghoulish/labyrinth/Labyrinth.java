@@ -28,4 +28,32 @@ public class Labyrinth {
     public Part[][] getParts() {
         return parts;
     }
+
+    public Part getPart(int i, int j) {
+        return parts[i][j];
+    }
+
+    public void setPart(int i, int j, Part part) {
+        parts[i][j] = part;
+    }
+
+    public Part checkForMove(int y, int x){
+//        if(y < 0 || x < 0 || y >= n || x >= m)
+//            return null;
+
+        if(parts[y][x].attemptMove())
+            return parts[y][x];
+
+        return null;
+    }
+
+    public Part lootTile(int y, int x){
+//        if(y < 0 || x < 0 || y >= n || x >= m)
+//            return null;
+
+        if(parts[y][x].lootCheck())
+            return parts[y][x];
+
+        return null;
+    }
 }

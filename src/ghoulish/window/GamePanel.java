@@ -1,13 +1,12 @@
 package ghoulish.window;
 
-import ghoulish.Game;
-import ghoulish.labyrinth.Labyrinth;
+import ghoulish.Main;
+import ghoulish.game.Game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-
-import static java.awt.image.BufferedImage.TYPE_INT_RGB;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel {
     Game game = new Game();
@@ -17,13 +16,22 @@ public class GamePanel extends JPanel {
 //        this.setSize(120,160);
 
         this.setVisible(true);
+
+
     }
 
     @Override
     public void paint(Graphics g){
-//        g.drawLine(120,0,120,120);
-//        g.drawLine(0,120,120,120);
+//        System.out.println("Redrawing");
+//        long startTime = System.currentTimeMillis();
+
         g.drawImage(game.getBackground(),0,0,null);
+        g.drawImage(game.player.getTexture(), game.player.getX() * Main.scale, game.player.getY() * Main.scale, Main.scale, Main.scale, null);
+//
+//        long endTime = System.currentTimeMillis();
+//        System.out.println(endTime - startTime+"");
+//
+//        System.out.println("Redrawn");
     }
 
     @Override

@@ -6,15 +6,18 @@ import java.io.FileReader;
 import java.util.Random;
 
 public class BlockChooser {
-    String[][] curlab;
-    int n, m;
-    Random r = new Random();
+    private String[][] curlab;
+    private int n, m;
+    private Random r = new Random();
 
-    public BlockChooser(){
+    private String textureWall = "resources/Labyrinth/Wall/";
+    private String textureFloor = "resources/Labyrinth/Floor/";
+
+    public BlockChooser() {
         LabReader lr = null;
         try {
             lr = new LabReader(new FileReader("resources/Labyrinth.in"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -29,89 +32,91 @@ public class BlockChooser {
         return m;
     }
 
-    public Part[][] constructLab(){
+    public Part[][] constructLab() {
         n = curlab.length;
         m = curlab[0].length;
 
         Part[][] ans = new Part[n][m];
 
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++)
-                if(curlab[i][j].equals("W"))
-                    ans[i][j] = chooseWall(i,j);
-                else if (curlab[i][j].contains("F")){
-                    ans[i][j] = chooseFloor(curlab[i][j]);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++)
+                if (curlab[i][j].equals("W"))
+                    ans[i][j] = chooseWall(i, j);
+                else if (curlab[i][j].contains("F")) {
+                    ans[i][j] = chooseFloor(i, j, curlab[i][j]);
                 }
         }
 
         return ans;
     }
 
-    private Part chooseWall(int y, int x){
+    private Part chooseWall(int y, int x) {
         boolean bot = false, top = false, right = false, left = false;
 
-        if(y - 1 >= 0 && curlab[y - 1][x].equals("W"))
+        if (y - 1 >= 0 && curlab[y - 1][x].equals("W"))
             top = true;
 
-        if(y + 1 < n && curlab[y + 1][x].equals("W"))
+        if (y + 1 < n && curlab[y + 1][x].equals("W"))
             bot = true;
 
-        if(x - 1 >= 0 && curlab[y][x - 1].equals("W"))
+        if (x - 1 >= 0 && curlab[y][x - 1].equals("W"))
             left = true;
 
-        if(x + 1 < m && curlab[y][x + 1].equals("W"))
+        if (x + 1 < m && curlab[y][x + 1].equals("W"))
             right = true;
 
-        if(bot && top && left && right)
-            return new Wall("HTM.png");
-        else if(bot && top && left)
-            return new Wall("HTL.png");
-        else if(bot && top && right)
-            return new Wall("HTR.png");
-        else if(top && left && right)
-            return new Wall("HTT.png");
-        else if(bot && left && right)
-            return new Wall("HTB.png");
-        else if(bot && left)
-            return new Wall("CBL.png");
-        else if(bot && right)
-            return new Wall("CBR.png");
-        else if(top && left)
-            return new Wall("CTL.png");
-        else if(top && right)
-            return new Wall("CTR.png");
-        else if(top && bot)
-            return new Wall("VHole.png");
-        else if(left && right) {
-            int choose = r.nextInt()%2;
+        String wallans;
+        if (bot && top && left && right)
+            wallans = "HTM.png";
+        else if (bot && top && left)
+            wallans = "HTL.png";
+        else if (bot && top && right)
+            wallans = "HTR.png";
+        else if (top && left && right)
+            wallans = "HTT.png";
+        else if (bot && left && right)
+            wallans = "HTB.png";
+        else if (bot && left)
+            wallans = "CBL.png";
+        else if (bot && right)
+            wallans = "CBR.png";
+        else if (top && left)
+            wallans = "CTL.png";
+        else if (top && right)
+            wallans = "CTR.png";
+        else if (top && bot)
+            wallans = "VHole.png";
+        else if (left && right) {
+            int choose = r.nextInt() % 2;
 
-            if(choose == 0)
-                return new Wall("H.png");
+            if (choose == 0)
+                wallans = "H.png";
             else
-                return new Wall("HHole.png");
-        }
-        else if(top)
-            return new Wall("ET.png");
-        else if(bot)
-            return new Wall("EB.png");
-        else if(left)
-            return new Wall("EL.png");
-        else if(right)
-            return new Wall("ER.png");
+                wallans = "HHole.png";
+        } else if (top)
+            wallans = "ET.png";
+        else if (bot)
+            wallans = "EB.png";
+        else if (left)
+            wallans = "EL.png";
+        else if (right)
+            wallans = "ER.png";
         else
-            return new Wall("Alone.png");
+            wallans = "Alone.png";
+
+        return new Wall(y, x, textureWall + wallans);
     }
 
-    private Part chooseFloor(String s){
+    private Part chooseFloor(int y, int x, String s) {
         boolean skeleton = s.contains("S"), trap = s.contains("T");
 
-        Part ans = new Floor("Floor.png");
+        Part ans = new Floor(y, x, textureFloor + "Floor.png");
 
-        if(trap)
-            ans = new Trap(ans, "Trap.png");
+        if (trap)
+            ans = new Trap(y, x, ans, textureFloor + "Trap.png", r.nextBoolean());
 
-        if(skeleton)
-            ans = new Bones(ans, "Bones.png");
+        if (skeleton)
+            ans = new Bones(y, x, ans, textureFloor + "Bones.png");
 
         return ans;
     }
