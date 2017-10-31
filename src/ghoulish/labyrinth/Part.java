@@ -15,7 +15,7 @@ public abstract class Part {
         y = i;
         x = j;
         parent = _parent;
-        textureName = parent.getTextureName() + " " + s;
+        textureName = s;
     }
 
     Part(int i, int j, String s){
@@ -35,11 +35,14 @@ public abstract class Part {
     public abstract boolean attemptMove();
 
     public BufferedImage getTexture(){
-        return TextureContainer.getTexture(textureName);
+        return TextureContainer.getTexture(this.getTextureName());
     }
 
     public String getTextureName(){
-        return textureName;
+        if(this.parent == null)
+            return textureName;
+
+        return this.parent.getTextureName()+" "+textureName;
     }
 
     public boolean trapCheck() {
@@ -71,11 +74,16 @@ public abstract class Part {
 
         if(this.parent instanceof Bones) {
             this.parent = this.parent.parent;
+
             return this;
         }
         else if(parent != null)
             return parent.collapseLoot();
 
         return null;
+    }
+
+    public Part getParent() {
+        return parent;
     }
 }

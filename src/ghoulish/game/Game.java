@@ -7,6 +7,7 @@ import ghoulish.labyrinth.Labyrinth;
 import ghoulish.labyrinth.Part;
 import ghoulish.util.LabReader;
 import ghoulish.util.PlayerReader;
+import ghoulish.window.GamePanel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileReader;
 
 public class Game {
+    private GamePanel gp = new GamePanel(this);
     private Labyrinth lab;
     private int height, width;
     private BufferedImage background;
@@ -91,9 +93,11 @@ public class Game {
             localRedraw(lab.getPart(player.getY()+dy, player.getX()+dx));
         }
 
-        player.move(dy,dx);
+        player.move(dy, dx);
 
         turningMachine.nextTurn();
+
+        gp.repaint();
     }
 
     public void loot(){
@@ -110,6 +114,8 @@ public class Game {
             lab.setPart(player.getY(), player.getX(), pr.collapseLoot());
             localRedraw(lab.getPart(player.getY(), player.getX()));
         }
+
+        gp.repaint();
     }
 
     public void resurrect(){
@@ -118,5 +124,9 @@ public class Game {
 
     public void skipTurn(){
         turningMachine.nextTurn();
+    }
+
+    public GamePanel getGp() {
+        return gp;
     }
 }

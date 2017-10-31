@@ -9,14 +9,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel {
-    Game game = new Game();
+    Game game;
 
-    public GamePanel(){
+    public GamePanel(Game _game){
+        game = _game;
         this.setSize(game.getWidth(), game.getHeight());
 //        this.setSize(120,160);
 
         this.setVisible(true);
-
 
     }
 

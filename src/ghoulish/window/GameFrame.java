@@ -7,17 +7,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame {
-    GamePanel gp = new GamePanel();
+    Game game = new Game();
 
     public GameFrame(){
         this.setLocation(20,20);
-        this.add(gp);
+        this.add(game.getGp());
         this.pack();
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
-
-        Game game = gp.game;
 
         this.addKeyListener(new KeyListener() {
             @Override
@@ -43,8 +41,6 @@ public class GameFrame extends JFrame {
                 }else if(code == KeyEvent.VK_SPACE){
                     game.skipTurn();
                 }
-
-                gp.repaint();
             }
 
             @Override
@@ -54,7 +50,4 @@ public class GameFrame extends JFrame {
         });
     }
 
-    public void paint(){
-        gp.repaint();
-    }
 }

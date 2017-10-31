@@ -10,8 +10,8 @@ public class BlockChooser {
     private int n, m;
     private Random r = new Random();
 
-    private String textureWall = "resources/Labyrinth/Wall/";
-    private String textureFloor = "resources/Labyrinth/Floor/";
+    private static String textureWall = "resources/Labyrinth/Wall/";
+    private static String textureFloor = "resources/Labyrinth/Floor/";
 
     public BlockChooser() {
         LabReader lr = null;
@@ -120,4 +120,5 @@ public class BlockChooser {
 
         return ans;
     }
+
 }
