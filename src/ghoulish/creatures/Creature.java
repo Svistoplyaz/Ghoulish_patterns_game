@@ -5,8 +5,8 @@ import ghoulish.util.TextureContainer;
 import java.awt.image.BufferedImage;
 
 public abstract class Creature {
-    int y;
-    int x;
+    double y;
+    double x;
     int hp;
     String textureName;
 
@@ -17,12 +17,20 @@ public abstract class Creature {
         textureName = texture;
     }
 
-    public int getX() {
+    public double getDX() {
         return x;
     }
 
-    public int getY() {
+    public double getDY() {
         return y;
+    }
+
+    public int getIX() {
+        return (int)(x+0.5);
+    }
+
+    public int getIY() {
+        return (int)(y+0.5);
     }
 
     public boolean inflictDamage(int damage) {
@@ -34,6 +42,11 @@ public abstract class Creature {
     }
 
     public void move(int dy, int dx) {
+        y += dy;
+        x += dx;
+    }
+
+    public void move(double dy, double dx) {
         y += dy;
         x += dx;
     }

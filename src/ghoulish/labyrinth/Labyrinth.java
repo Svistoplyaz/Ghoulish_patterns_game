@@ -47,6 +47,10 @@ public class Labyrinth {
         return null;
     }
 
+    public boolean canMoveHere(int y, int x){
+        return parts[y][x].attemptMove();
+    }
+
     public Part lootTile(int y, int x){
 //        if(y < 0 || x < 0 || y >= n || x >= m)
 //            return null;

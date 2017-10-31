@@ -1,5 +1,6 @@
 package ghoulish.window;
 
+import ghoulish.Main;
 import ghoulish.game.Game;
 
 import javax.swing.*;
@@ -7,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame {
-    Game game = new Game();
+    Game game = Main.game;
 
     public GameFrame(){
         this.setLocation(20,20);

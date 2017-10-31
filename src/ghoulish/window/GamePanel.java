@@ -26,7 +26,7 @@ public class GamePanel extends JPanel {
 //        long startTime = System.currentTimeMillis();
 
         g.drawImage(game.getBackground(),0,0,null);
-        g.drawImage(game.player.getTexture(), game.player.getX() * Main.scale, game.player.getY() * Main.scale, Main.scale, Main.scale, null);
+        g.drawImage(game.player.getTexture(), (int)(game.player.getDX() * Main.scale), (int)(game.player.getDY() * Main.scale), Main.scale, Main.scale, null);
 //
 //        long endTime = System.currentTimeMillis();
 //        System.out.println(endTime - startTime+"");

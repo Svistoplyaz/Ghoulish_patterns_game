@@ -1,6 +1,7 @@
 package ghoulish.game;
 
 import ghoulish.Main;
+import ghoulish.creatures.AI;
 import ghoulish.creatures.Creature;
 import ghoulish.creatures.Player;
 import ghoulish.labyrinth.Labyrinth;
@@ -14,24 +15,25 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.FileReader;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Game {
     private GamePanel gp = new GamePanel(this);
     private Labyrinth lab;
     private int height, width;
     private BufferedImage background;
-    private KeyListener keyListener;
     public Player player = null;
     TurningMachine turningMachine;
 
-    public Game(){
+    public Game() {
         lab = new Labyrinth();
-        height = (lab.getN())* Main.scale;
-        width = (lab.getM())*Main.scale;
+        height = (lab.getN()) * Main.scale;
+        width = (lab.getM()) * Main.scale;
 
         background = globalRedraw();
 
-        turningMachine = new TurningMachine();
+        turningMachine = new TurningMachine(gp, new AI(lab));
 
         PlayerReader pr = null;
         try {
@@ -43,25 +45,25 @@ public class Game {
         player = pr.readPlayer();
     }
 
-    private BufferedImage globalRedraw(){
+    private BufferedImage globalRedraw() {
         BufferedImage ans = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Part[][] parts = lab.getParts();
 
         Graphics g = ans.getGraphics();
         int n = lab.getN(), m = lab.getM();
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
-                g.drawImage(parts[i][j].getTexture(), j*Main.scale, i*Main.scale, Main.scale,Main.scale, null);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                g.drawImage(parts[i][j].getTexture(), j * Main.scale, i * Main.scale, Main.scale, Main.scale, null);
             }
         }
 
         return ans;
     }
 
-    private void localRedraw(Part part){
+    private void localRedraw(Part part) {
         Graphics g = background.getGraphics();
 
-        g.drawImage(part.getTexture(), part.getX()*Main.scale, part.getY()*Main.scale, Main.scale, Main.scale, null);
+        g.drawImage(part.getTexture(), part.getX() * Main.scale, part.getY() * Main.scale, Main.scale, Main.scale, null);
 
     }
 
@@ -78,55 +80,60 @@ public class Game {
 //        return globalRedraw();
     }
 
-    public void movePlayer(int dy, int dx){
-        if(turningMachine.inProgress)
+    public void movePlayer(int dy, int dx) {
+        if (turningMachine.inProgress)
             return;
 
-        Part pr = lab.checkForMove(player.getY()+dy, player.getX()+dx);
+        int destX = player.getIX() + dx, destY = player.getIY() + dy;
 
-        if(pr == null)
+        Part pr = lab.checkForMove(destY, destX);
+
+        if (pr == null)
             return;
 
-        if(pr.trapCheck()){
+        if (pr.trapCheck()) {
             player.inflictDamage(1);
-            lab.setPart(player.getY()+dy, player.getX()+dx, pr.collapseDanger());
-            localRedraw(lab.getPart(player.getY()+dy, player.getX()+dx));
+            lab.setPart(destY, destX, pr.collapseDanger());
+            localRedraw(lab.getPart(destY, destX));
         }
 
-        player.move(dy, dx);
+        turningMachine.queueMove(player, dx, dy);
 
         turningMachine.nextTurn();
 
         gp.repaint();
     }
 
-    public void loot(){
-        if(turningMachine.inProgress)
+    public void loot() {
+        int destY = player.getIY(), destX = player.getIX();
+
+        if (turningMachine.inProgress)
             return;
 
-        Part pr = lab.lootTile(player.getY(), player.getX());
+        Part pr = lab.lootTile(destY, destX);
 
-        if(pr == null)
+        if (pr == null)
             return;
 
-        if(pr.lootCheck()){
+        if (pr.lootCheck()) {
             player.inflictDamage(-1);
-            lab.setPart(player.getY(), player.getX(), pr.collapseLoot());
-            localRedraw(lab.getPart(player.getY(), player.getX()));
+            lab.setPart(destY, destX, pr.collapseLoot());
+            localRedraw(lab.getPart(destY, destX));
         }
 
         gp.repaint();
     }
 
-    public void resurrect(){
+    public void resurrect() {
 
     }
 
-    public void skipTurn(){
+    public void skipTurn() {
         turningMachine.nextTurn();
     }
 
     public GamePanel getGp() {
         return gp;
     }
+
 }
