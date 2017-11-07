@@ -11,9 +11,12 @@ import java.util.Random;
 
 public class AI {
     Labyrinth lab;
+    //Возможные направления для шага
     int[][] possibleMoves = {{-1,0},{1,0},{0,1},{0,-1}};
     Random random = new Random();
+    //Путь до героя
     int[][] path;
+    //
     int px, py;
 
     public AI(Labyrinth _lab){
@@ -49,9 +52,9 @@ public class AI {
             used[cur.y * path[0].length + cur.x] = true;
 
             for(int i = 0; i < 4; i++){
-                int y = cur.y + possibleMoves[i][0];
-                int x = cur.x + possibleMoves[i][1];
-                if(lab.canMoveHere(y,x) && !used[cur.y * path[0].length + cur.x]){
+                int y = cur.y - possibleMoves[i][0];
+                int x = cur.x - possibleMoves[i][1];
+                if(lab.canMoveHere(y,x) && !used[y * path[0].length + x]){
                     queue.add(new Trio(y,x,i));
                 }
             }
@@ -78,7 +81,7 @@ public class AI {
         if(len == 0)
             return new Pair<>(0,0);
 
-        int index = possibilities.get(random.nextInt() % len);
+        int index = possibilities.get(random.nextInt(len));
 
         return new Pair<>(possibleMoves[index][0], possibleMoves[index][1]);
     }

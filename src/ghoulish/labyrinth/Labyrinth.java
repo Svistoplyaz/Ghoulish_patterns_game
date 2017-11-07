@@ -1,20 +1,28 @@
 package ghoulish.labyrinth;
 
+import ghoulish.creatures.Creature;
 import ghoulish.util.BlockChooser;
 import ghoulish.util.LabReader;
 
 import java.io.FileReader;
 
 public class Labyrinth {
+    private static Labyrinth instance = null;
     private Part[][] parts;
     private int n, m;
 
-    public Labyrinth(){
+    private Labyrinth(){
         BlockChooser blockChooser = new BlockChooser();
 
         parts = blockChooser.constructLab();
         n = blockChooser.getN();
         m = blockChooser.getM();
+    }
+
+    public static synchronized Labyrinth getInstance() {
+        if (instance == null)
+            instance = new Labyrinth();
+        return instance;
     }
 
     public int getN(){
@@ -45,6 +53,10 @@ public class Labyrinth {
             return parts[y][x];
 
         return null;
+    }
+
+    public boolean canMoveHere(Creature creature, int dy, int dx){
+        return parts[creature.getIY()+dy][creature.getIX()+dx].attemptMove();
     }
 
     public boolean canMoveHere(int y, int x){

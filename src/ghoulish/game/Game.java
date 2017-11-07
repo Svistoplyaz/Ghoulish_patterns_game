@@ -24,16 +24,16 @@ public class Game {
     private int height, width;
     private BufferedImage background;
     public Player player = null;
-    TurningMachine turningMachine;
+    private TurningMachine turningMachine;
 
     public Game() {
-        lab = new Labyrinth();
+        lab = Labyrinth.getInstance();
         height = (lab.getN()) * Main.scale;
         width = (lab.getM()) * Main.scale;
 
         background = globalRedraw();
 
-        turningMachine = new TurningMachine(gp, new AI(lab));
+        turningMachine = new TurningMachine(gp);
 
         PlayerReader pr = null;
         try {
@@ -81,47 +81,48 @@ public class Game {
     }
 
     public void movePlayer(int dy, int dx) {
-        if (turningMachine.inProgress)
+        if (turningMachine.inProgress || !Labyrinth.getInstance().canMoveHere(player,dy,dx))
             return;
 
-        int destX = player.getIX() + dx, destY = player.getIY() + dy;
+        turningMachine.queueMove(player, dy, dx);
 
-        Part pr = lab.checkForMove(destY, destX);
-
-        if (pr == null)
-            return;
-
-        if (pr.trapCheck()) {
-            player.inflictDamage(1);
-            lab.setPart(destY, destX, pr.collapseDanger());
-            localRedraw(lab.getPart(destY, destX));
-        }
-
-        turningMachine.queueMove(player, dx, dy);
-
-        turningMachine.nextTurn();
-
-        gp.repaint();
+//        int destX = player.getIX() + dx, destY = player.getIY() + dy;
+//
+//        Part pr = lab.checkForMove(destY, destX);
+//
+//        if (pr == null)
+//            return;
+//
+//        if (pr.trapCheck()) {
+//            player.inflictDamage(1);
+//            lab.setPart(destY, destX, pr.collapseDanger());
+//            localRedraw(lab.getPart(destY, destX));
+//        }
+//
+//
+//        turningMachine.nextTurn();
+//
+//        gp.repaint();
     }
 
     public void loot() {
-        int destY = player.getIY(), destX = player.getIX();
-
-        if (turningMachine.inProgress)
-            return;
-
-        Part pr = lab.lootTile(destY, destX);
-
-        if (pr == null)
-            return;
-
-        if (pr.lootCheck()) {
-            player.inflictDamage(-1);
-            lab.setPart(destY, destX, pr.collapseLoot());
-            localRedraw(lab.getPart(destY, destX));
-        }
-
-        gp.repaint();
+//        int destY = player.getIY(), destX = player.getIX();
+//
+//        if (turningMachine.inProgress)
+//            return;
+//
+//        Part pr = lab.lootTile(destY, destX);
+//
+//        if (pr == null)
+//            return;
+//
+//        if (pr.lootCheck()) {
+//            player.inflictDamage(-1);
+//            lab.setPart(destY, destX, pr.collapseLoot());
+//            localRedraw(lab.getPart(destY, destX));
+//        }
+//
+//        gp.repaint();
     }
 
     public void resurrect() {

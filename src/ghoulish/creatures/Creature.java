@@ -7,12 +7,14 @@ import java.awt.image.BufferedImage;
 public abstract class Creature {
     double y;
     double x;
+    int facty;
+    int factx;
     int hp;
     String textureName;
 
     public Creature(int _y, int _x, int _hp, String texture) {
-        y = _y;
-        x = _x;
+        y = facty = _y;
+        x = factx = _x;
         hp = _hp;
         textureName = texture;
     }
@@ -26,11 +28,11 @@ public abstract class Creature {
     }
 
     public int getIX() {
-        return (int)(x+0.5);
+        return factx;
     }
 
     public int getIY() {
-        return (int)(y+0.5);
+        return facty;
     }
 
     public boolean inflictDamage(int damage) {
@@ -42,8 +44,8 @@ public abstract class Creature {
     }
 
     public void move(int dy, int dx) {
-        y += dy;
-        x += dx;
+        facty += dy;
+        factx += dx;
     }
 
     public void move(double dy, double dx) {
