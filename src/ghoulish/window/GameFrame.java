@@ -9,16 +9,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame {
-//    Game game = Main.game;
+    //    Game game = Main.game;
     TurningStateMachine turn = TurningStateMachine.getInstance();
 
-    public GameFrame(){
-        this.setLocation(20,20);
+    public GameFrame() {
+        this.setLocation(20, 20);
         this.add(Visualiser.getInstance().gamePanel);
         this.pack();
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
+        TurningStateMachine.MyThread thread = TurningStateMachine.getInstance().thread;
 
         this.addKeyListener(new KeyListener() {
             @Override
@@ -28,21 +29,26 @@ public class GameFrame extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                int code = e.getKeyCode();
-                if(code == KeyEvent.VK_W){
-                    turn.wPressed();
-                }else if(code == KeyEvent.VK_A){
-                    turn.aPressed();
-                }else if(code == KeyEvent.VK_S){
-                    turn.sPressed();
-                }else if(code == KeyEvent.VK_D){
-                    turn.dPressed();
-                }else if(code == KeyEvent.VK_E){
-                    turn.ePressed();
-                }else if(code == KeyEvent.VK_R){
+                synchronized (thread) {
+                    int code = e.getKeyCode();
+                    if (code == KeyEvent.VK_W) {
+                        turn.wPressed();
+                    } else if (code == KeyEvent.VK_A) {
+                        turn.aPressed();
+                    } else if (code == KeyEvent.VK_S) {
+                        turn.sPressed();
+                    } else if (code == KeyEvent.VK_D) {
+                        turn.dPressed();
+                    } else if (code == KeyEvent.VK_E) {
+                        turn.ePressed();
+                    } else if (code == KeyEvent.VK_R) {
+                        System.out.println("1");
 
-                }else if(code == KeyEvent.VK_SPACE){
-                    turn.spacePressed();
+                        System.out.println("2");
+                        turn.thread.notifyAll();
+                    } else if (code == KeyEvent.VK_SPACE) {
+                        turn.spacePressed();
+                    }
                 }
             }
 

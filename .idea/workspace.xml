@@ -2,45 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4e64cbc-19a6-4e25-a0ec-0570c9599b5f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/game/TurningMachine$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/game/TurningMachine$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/util/PlayerReader.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ghoulish/game/TurningMachine.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ghoulish/util/PlayerReader.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/AI$Trio.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/AI$Trio.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/AI.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/AI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/Creature.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/Creature.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/Layer1.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/Layer1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/Player.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/creatures/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/game/Game.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/game/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/game/TurningMachine$Trio.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/game/TurningMachine$Trio.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/game/TurningMachine.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/game/TurningMachine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/labyrinth/Labyrinth.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/labyrinth/Labyrinth.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/labyrinth/Part.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/labyrinth/Part.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/labyrinth/Trap.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/labyrinth/Trap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/util/BlockChooser.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/util/BlockChooser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/util/LabReader.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/util/LabReader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/window/GameFrame.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/window/GameFrame.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/window/GamePanel.class" afterPath="$PROJECT_DIR$/out/production/Patterns/ghoulish/window/GamePanel.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Patterns/ghoulish/window/GameFrame.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/Labyrinth.in" afterPath="$PROJECT_DIR$/resources/Labyrinth.in" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/Monsters.in" afterPath="$PROJECT_DIR$/resources/Monsters.in" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/Player.in" afterPath="$PROJECT_DIR$/resources/Player.in" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/Main.java" afterPath="$PROJECT_DIR$/src/ghoulish/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/creatures/AI.java" afterPath="$PROJECT_DIR$/src/ghoulish/creatures/AI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/creatures/Creature.java" afterPath="$PROJECT_DIR$/src/ghoulish/creatures/Creature.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/creatures/Layer1.java" afterPath="$PROJECT_DIR$/src/ghoulish/creatures/Layer1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/creatures/Player.java" afterPath="$PROJECT_DIR$/src/ghoulish/creatures/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/game/Game.java" afterPath="$PROJECT_DIR$/src/ghoulish/game/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/labyrinth/Bones.java" afterPath="$PROJECT_DIR$/src/ghoulish/labyrinth/Bones.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/labyrinth/Labyrinth.java" afterPath="$PROJECT_DIR$/src/ghoulish/labyrinth/Labyrinth.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/labyrinth/Part.java" afterPath="$PROJECT_DIR$/src/ghoulish/labyrinth/Part.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/labyrinth/Trap.java" afterPath="$PROJECT_DIR$/src/ghoulish/labyrinth/Trap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/util/BlockChooser.java" afterPath="$PROJECT_DIR$/src/ghoulish/util/BlockChooser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/util/LabReader.java" afterPath="$PROJECT_DIR$/src/ghoulish/util/LabReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java" afterPath="$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/util/MoveAnswer.java" afterPath="$PROJECT_DIR$/src/ghoulish/util/MoveAnswer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/window/GameFrame.java" afterPath="$PROJECT_DIR$/src/ghoulish/window/GameFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ghoulish/window/GamePanel.java" afterPath="$PROJECT_DIR$/src/ghoulish/window/GamePanel.java" />
     </list>
     <ignored path="Patterns.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,59 +26,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ghoulish/creatures/AI.java">
+      <file leaf-file-name="GameFrame.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ghoulish/window/GameFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Layer1.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ghoulish/creatures/Layer1.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="463">
+              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#997#998#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Monster.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ghoulish/creatures/Monster.java">
+      <file leaf-file-name="TurningStateMachine.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2146#2147#0" expanded="true" />
+                <element signature="e#2172#2173#0" expanded="true" />
+                <element signature="e#2551#2552#0" expanded="true" />
+                <element signature="e#2598#2599#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="State.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ghoulish/game/State.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ghoulish/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Creature.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ghoulish/creatures/Creature.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-              <folding>
-                <element signature="e#656#657#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -120,56 +67,8 @@
       <file leaf-file-name="MoveAnswer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ghoulish/util/MoveAnswer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="106" column="0" lean-forward="true" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1063#1064#0" expanded="true" />
-                <element signature="e#1125#1126#0" expanded="true" />
-                <element signature="e#1171#1172#0" expanded="true" />
-                <element signature="e#1217#1218#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TurningStateMachine.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2257#2258#0" expanded="true" />
-                <element signature="e#2289#2290#0" expanded="true" />
-                <element signature="e#2318#2319#0" expanded="true" />
-                <element signature="e#2350#2351#0" expanded="true" />
-                <element signature="e#2379#2380#0" expanded="true" />
-                <element signature="e#2410#2411#0" expanded="true" />
-                <element signature="e#2439#2440#0" expanded="true" />
-                <element signature="e#2470#2471#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameFrame.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ghoulish/window/GameFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="12" column="17" lean-forward="true" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Visualiser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ghoulish/window/Visualiser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+            <state relative-caret-position="221">
+              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -182,9 +81,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -214,7 +113,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/storage/Product.java" />
         <option value="$PROJECT_DIR$/src/commands/Order.java" />
         <option value="$PROJECT_DIR$/src/commands/OrderBoil.java" />
         <option value="$PROJECT_DIR$/src/parts/Chef.java" />
@@ -261,10 +159,11 @@
         <option value="$PROJECT_DIR$/src/ghoulish/creatures/Layer1.java" />
         <option value="$PROJECT_DIR$/src/ghoulish/creatures/Creature.java" />
         <option value="$PROJECT_DIR$/src/ghoulish/window/Visualiser.java" />
-        <option value="$PROJECT_DIR$/src/ghoulish/util/MoveAnswer.java" />
-        <option value="$PROJECT_DIR$/src/ghoulish/window/GameFrame.java" />
-        <option value="$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java" />
         <option value="$PROJECT_DIR$/src/ghoulish/Main.java" />
+        <option value="$PROJECT_DIR$/src/ghoulish/window/GameFrame.java" />
+        <option value="$PROJECT_DIR$/src/ghoulish/game/State.java" />
+        <option value="$PROJECT_DIR$/src/ghoulish/util/MoveAnswer.java" />
+        <option value="$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java" />
       </list>
     </option>
   </component>
@@ -641,12 +540,12 @@
       <workItem from="1509850673676" duration="593000" />
       <workItem from="1509880023905" duration="10264000" />
       <workItem from="1510121581668" duration="12499000" />
-      <workItem from="1510142493952" duration="12453000" />
+      <workItem from="1510142493952" duration="18344000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107289000" />
+    <option name="totallyTimeSpent" value="113180000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
@@ -658,7 +557,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39978212" sideWeight="0.50238097" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2788671" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2788671" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -668,7 +567,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39869282" sideWeight="0.49761903" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39869282" sideWeight="0.49761903" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Code Iris" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -694,7 +593,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="91" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ghoulish/window/GameFrame.java</url>
+          <line>32</line>
+          <properties />
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="105" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -703,8 +610,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/io/File.java" />
-    <entry file="file://$PROJECT_DIR$/src/ghoulish/labyrinth/GreatWall.java" />
     <entry file="file://$PROJECT_DIR$/ground.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -744,6 +649,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="504" column="0" lean-forward="false" selection-start-line="504" selection-start-column="0" selection-end-line="504" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -780,14 +686,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="25" lean-forward="true" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/util/Pair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="45" column="23" lean-forward="false" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -952,35 +850,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ghoulish/window/Visualiser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ghoulish/creatures/AI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ghoulish/util/MoveAnswer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="106" column="0" lean-forward="true" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1063#1064#0" expanded="true" />
-            <element signature="e#1125#1126#0" expanded="true" />
-            <element signature="e#1171#1172#0" expanded="true" />
-            <element signature="e#1217#1218#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -990,34 +864,6 @@
           <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding>
             <element signature="e#656#657#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ghoulish/window/GameFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="12" column="17" lean-forward="true" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2257#2258#0" expanded="true" />
-            <element signature="e#2289#2290#0" expanded="true" />
-            <element signature="e#2318#2319#0" expanded="true" />
-            <element signature="e#2350#2351#0" expanded="true" />
-            <element signature="e#2379#2380#0" expanded="true" />
-            <element signature="e#2410#2411#0" expanded="true" />
-            <element signature="e#2439#2440#0" expanded="true" />
-            <element signature="e#2470#2471#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1041,12 +887,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ghoulish/window/Visualiser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/util/Pair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="45" column="23" lean-forward="false" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ghoulish/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+          <caret line="14" column="28" lean-forward="false" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="704" column="0" lean-forward="false" selection-start-line="704" selection-start-column="0" selection-end-line="704" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ghoulish/window/GameFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ghoulish/util/MoveAnswer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ghoulish/game/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ghoulish/game/TurningStateMachine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2146#2147#0" expanded="true" />
+            <element signature="e#2172#2173#0" expanded="true" />
+            <element signature="e#2551#2552#0" expanded="true" />
+            <element signature="e#2598#2599#0" expanded="true" />
           </folding>
         </state>
       </provider>

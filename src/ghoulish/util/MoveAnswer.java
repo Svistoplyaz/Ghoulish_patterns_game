@@ -10,6 +10,8 @@ import ghoulish.window.Visualiser;
 
 import java.util.Random;
 
+import static ghoulish.game.State.*;
+
 public class MoveAnswer {
     private static MoveAnswer instance;
     private Labyrinth lab = Labyrinth.getInstance();
@@ -79,7 +81,7 @@ public class MoveAnswer {
         player.inflictDamage(value);
 
         if(player.getHp() < 1)
-            TurningStateMachine.getInstance().state = "Death";
+            TurningStateMachine.getInstance().state = Death;
     }
 
     public void monsterMoved(Monster monster){
