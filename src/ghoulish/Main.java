@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
 
-        game = new Game();
+//        game = new Game();
         GameFrame gf = new GameFrame();
 
         long endTime = System.currentTimeMillis();

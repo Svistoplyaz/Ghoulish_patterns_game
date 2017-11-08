@@ -1,51 +1,52 @@
 package ghoulish.creatures;
 
+import ghoulish.Main;
 import ghoulish.util.TextureContainer;
 
 import java.awt.image.BufferedImage;
 
 public abstract class Creature {
-    double y;
-    double x;
-    int facty;
-    int factx;
+    int y;
+    int x;
     int hp;
     String textureName;
 
     public Creature(int _y, int _x, int _hp, String texture) {
-        y = facty = _y;
-        x = factx = _x;
+        y = _y;
+        x = _x;
         hp = _hp;
         textureName = texture;
     }
 
-    public double getDX() {
+    public int getX() {
         return x;
     }
 
-    public double getDY() {
+    public int getY() {
         return y;
     }
 
-    public int getIX() {
-        return factx;
+    public int getPictureX() {
+        return x * Main.scale;
     }
 
-    public int getIY() {
-        return facty;
+    public int getPictureY() {
+        return y * Main.scale;
+    }
+
+    public int getHp() {
+        return hp;
     }
 
     public boolean inflictDamage(int damage) {
         hp -= damage;
 
-        if (hp <= 0)
-            return false;
-        return true;
+        return hp > 0;
     }
 
     public void move(int dy, int dx) {
-        facty += dy;
-        factx += dx;
+        y += dy;
+        x += dx;
     }
 
     public void move(double dy, double dx) {

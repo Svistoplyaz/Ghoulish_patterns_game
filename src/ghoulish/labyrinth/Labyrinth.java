@@ -2,9 +2,6 @@ package ghoulish.labyrinth;
 
 import ghoulish.creatures.Creature;
 import ghoulish.util.BlockChooser;
-import ghoulish.util.LabReader;
-
-import java.io.FileReader;
 
 public class Labyrinth {
     private static Labyrinth instance = null;
@@ -56,7 +53,7 @@ public class Labyrinth {
     }
 
     public boolean canMoveHere(Creature creature, int dy, int dx){
-        return parts[creature.getIY()+dy][creature.getIX()+dx].attemptMove();
+        return parts[creature.getY()+dy][creature.getX()+dx].attemptMove();
     }
 
     public boolean canMoveHere(int y, int x){
@@ -71,5 +68,13 @@ public class Labyrinth {
             return parts[y][x];
 
         return null;
+    }
+
+    public void collapseDanger(int y, int x){
+        parts[y][x] = parts[y][x].collapseDanger();
+    }
+
+    public void collapseLoot(int y, int x){
+        parts[y][x] = parts[y][x].collapseLoot();
     }
 }

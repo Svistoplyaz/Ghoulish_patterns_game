@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 public class LabReader {
     private FileReader in;
     private int n,m;
-    private String[] voc = {"W", "F", "SF", "TF", "STF"};
+    private String[] voc = {"W", "F", "SF", "TF", "STF","DF"};
 
     public LabReader(FileReader _in){
         in = _in;

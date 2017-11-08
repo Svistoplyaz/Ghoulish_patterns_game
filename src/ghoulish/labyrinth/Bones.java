@@ -17,7 +17,7 @@ public class Bones extends Part {
         return true;
     }
 
-    public boolean lootCheck(){
+    public boolean hasLoot(){
         return true;
     }
 }

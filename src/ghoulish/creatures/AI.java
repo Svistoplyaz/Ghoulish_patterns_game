@@ -1,7 +1,7 @@
 package ghoulish.creatures;
 
 import ghoulish.labyrinth.Labyrinth;
-import ghoulish.labyrinth.Part;
+import ghoulish.util.MoveAnswer;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -10,18 +10,17 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class AI {
-    Labyrinth lab;
+    private MoveAnswer moveAnswer = MoveAnswer.getInstance();
     //Возможные направления для шага
-    int[][] possibleMoves = {{-1,0},{1,0},{0,1},{0,-1}};
-    Random random = new Random();
+    private int[][] possibleMoves = {{-1,0},{1,0},{0,-1},{0,1}};
+    private Random random = new Random();
     //Путь до героя
-    int[][] path;
-    //
-    int px, py;
+    private int[][] path;
+    //Позиция игрока
+    private int px, py;
 
-    public AI(Labyrinth _lab){
-        lab = _lab;
-        path = new int[lab.getN()][lab.getM()];
+    public AI(){
+        path = new int[Labyrinth.getInstance().getN()][Labyrinth.getInstance().getM()];
     }
 
     private void clearPath(){
@@ -43,7 +42,7 @@ public class AI {
         boolean[] used = new boolean[path.length * path[0].length];
         Arrays.fill(used, false);
 
-        queue.add(new Trio(py, px, -1));
+        queue.add(new Trio(py, px, -2));
 
         while(!queue.isEmpty()) {
             Trio cur = queue.poll();
@@ -54,17 +53,21 @@ public class AI {
             for(int i = 0; i < 4; i++){
                 int y = cur.y - possibleMoves[i][0];
                 int x = cur.x - possibleMoves[i][1];
-                if(lab.canMoveHere(y,x) && !used[y * path[0].length + x]){
+                if(moveAnswer.noWallOrClosedDoor(y,x) && !used[y * path[0].length + x]){
                     queue.add(new Trio(y,x,i));
                 }
             }
         }
 
+        int lol = 1;
     }
 
     public Pair<Integer, Integer> monsterMove(int my, int mx, int angerRange){
-        if(path[my][mx] == -1 || Math.sqrt((px-mx)*(px-mx) + (py-my)*(py-my)) > angerRange)
+        if(path[my][mx] == -2)
+            return new Pair<>(0,0);
+        if(path[my][mx] == -1 || Math.sqrt((px-mx)*(px-mx) + (py-my)*(py-my)) > angerRange || !moveAnswer.canMoveMonster(my + possibleMoves[path[my][mx]][0], mx+ possibleMoves[path[my][mx]][1]))
             return randomMove(my, mx);
+
 
         return new Pair<>(possibleMoves[path[my][mx]][0], possibleMoves[path[my][mx]][1]);
     }
@@ -72,7 +75,7 @@ public class AI {
     private Pair<Integer, Integer> randomMove(int my, int mx){
         ArrayList<Integer> possibilities = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
-            if(lab.canMoveHere(my + possibleMoves[i][0],mx + possibleMoves[i][1])){
+            if(moveAnswer.canMoveMonster(my + possibleMoves[i][0],mx + possibleMoves[i][1])){
                 possibilities.add(i);
             }
         }

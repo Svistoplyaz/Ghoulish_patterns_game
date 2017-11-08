@@ -1,6 +1,5 @@
 package ghoulish.creatures;
 
-import ghoulish.labyrinth.Labyrinth;
 import ghoulish.util.Tokenizer;
 
 import java.io.FileReader;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 
 public class Layer1 {
     private static Layer1 instance = null;
-    public ArrayList<Creature> creatures = new ArrayList<>();
+    public ArrayList<Monster> creatures = new ArrayList<>();
 
     private Layer1(){
         try {
@@ -26,5 +25,17 @@ public class Layer1 {
         if (instance == null)
             instance = new Layer1();
         return instance;
+    }
+
+    public boolean hasMonster(int y, int x){
+        for(Monster creature : creatures)
+            if(creature.y == y && creature.x == x)
+                return true;
+
+        return false;
+    }
+
+    public void monsterDied(Monster monster){
+        creatures.remove(monster);
     }
 }

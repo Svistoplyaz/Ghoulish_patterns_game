@@ -10,20 +10,12 @@ import java.io.File;
 public class Trap extends Part {
     private boolean dangerous;
 
-    public Trap(int i, int j, Part _p, String s, boolean dan){
+    public Trap(int i, int j, Part _p, String s){
         super(i,j,_p,s);
-//        dangerous = dan;
-        dangerous = true;
     }
 
     public boolean attemptMove(){
         return true;
     }
 
-    public boolean trapCheck(){
-        if(dangerous || parent == null)
-            return dangerous;
-
-        return parent.trapCheck();
-    }
 }

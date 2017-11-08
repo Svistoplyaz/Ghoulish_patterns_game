@@ -2,50 +2,42 @@ package ghoulish.window;
 
 import ghoulish.Main;
 import ghoulish.creatures.Creature;
-import ghoulish.creatures.Layer1;
-import ghoulish.creatures.Monster;
-import ghoulish.game.Game;
+import ghoulish.labyrinth.Labyrinth;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel {
-    Game game;
+    static GamePanel instance;
+    BufferedImage image;
 
-    public GamePanel(Game _game){
-        game = _game;
-        this.setSize(game.getWidth(), game.getHeight());
-//        this.setSize(120,160);
+    private GamePanel(){
+        Labyrinth lab = Labyrinth.getInstance();
+        int height = (lab.getN()) * Main.scale;
+        int width = (lab.getM()) * Main.scale;
+        this.setSize(width, height);
 
         this.setVisible(true);
+    }
 
+    public static GamePanel getInstance() {
+        if(instance == null)
+            instance = new GamePanel();
+        return instance;
+    }
+
+    public void setImage(BufferedImage im){
+        image = im;
     }
 
     @Override
     public void paint(Graphics g){
-//        System.out.println("Redrawing");
-//        long startTime = System.currentTimeMillis();
-
-        g.drawImage(game.getBackground(),0,0,null);
-        g.drawImage(game.player.getTexture(), (int)(game.player.getDX() * Main.scale), (int)(game.player.getDY() * Main.scale), Main.scale, Main.scale, null);
-
-        ArrayList<Creature> creatures = Layer1.getInstance().creatures;
-
-        for(Creature creature : creatures){
-            g.drawImage(creature.getTexture(), (int)(creature.getDX() * Main.scale), (int)(creature.getDY() * Main.scale), Main.scale, Main.scale, null);
-        }
-//
-//        long endTime = System.currentTimeMillis();
-//        System.out.println(endTime - startTime+"");
-//
-//        System.out.println("Redrawn");
+        g.drawImage(image,0,0,null);
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(game.getWidth(), game.getHeight());
+        return new Dimension(this.getWidth(), this.getHeight());
     }
 }

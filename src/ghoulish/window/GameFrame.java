@@ -2,17 +2,19 @@ package ghoulish.window;
 
 import ghoulish.Main;
 import ghoulish.game.Game;
+import ghoulish.game.TurningStateMachine;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame {
-    Game game = Main.game;
+//    Game game = Main.game;
+    TurningStateMachine turn = TurningStateMachine.getInstance();
 
     public GameFrame(){
         this.setLocation(20,20);
-        this.add(game.getGp());
+        this.add(Visualiser.getInstance().gamePanel);
         this.pack();
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -28,19 +30,19 @@ public class GameFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int code = e.getKeyCode();
                 if(code == KeyEvent.VK_W){
-                    game.movePlayer(-1,0);
+                    turn.wPressed();
                 }else if(code == KeyEvent.VK_A){
-                    game.movePlayer(0,-1);
+                    turn.aPressed();
                 }else if(code == KeyEvent.VK_S){
-                    game.movePlayer(1,0);
+                    turn.sPressed();
                 }else if(code == KeyEvent.VK_D){
-                    game.movePlayer(0,1);
+                    turn.dPressed();
                 }else if(code == KeyEvent.VK_E){
-                    game.loot();
+                    turn.ePressed();
                 }else if(code == KeyEvent.VK_R){
 
                 }else if(code == KeyEvent.VK_SPACE){
-                    game.skipTurn();
+                    turn.spacePressed();
                 }
             }
 
