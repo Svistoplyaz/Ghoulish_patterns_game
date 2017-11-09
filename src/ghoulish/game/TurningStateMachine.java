@@ -20,6 +20,7 @@ public class TurningStateMachine {
     MoveAnswer moveAnswer = MoveAnswer.getInstance();
     public Boolean kek = true;
     public final MyThread thread = new MyThread(this);
+    public String pressedKey;
 
     private TurningStateMachine() {
         ai = new AI();
@@ -65,11 +66,132 @@ public class TurningStateMachine {
             thread.start();
         kek = false;
 
-        synchronized (thread){
+        synchronized (thread) {
             thread.notify();
         }
 
-        state = PlayerTurn;
+    }
+
+    public void realThreadHeart(){
+        for(;;){
+            switch (state) {
+                case PlayerTurn:
+
+                    try {
+                        thread.wait();
+                    }catch (Exception e){
+
+                    }
+
+                    int dy;
+                    int dx;
+
+                    if(pressedKey.equals("W"))
+                        dy = -1;
+                    else if(pressedKey.equals("S"))
+                        dy = 1;
+                    else
+                        dy = 0;
+
+                    if(pressedKey.equals("A"))
+                        dx = -1;
+                    else if(pressedKey.equals("D"))
+                        dx = 1;
+                    else
+                        dx = 0;
+
+                    int y = player.getY() + dy;
+                    int x = player.getX() + dx;
+
+                    if (state == PlayerTurn && moveAnswer.canMovePlayer(y, x)) {
+                        Visualiser visualiser = Visualiser.getInstance();
+
+                        player.move(dy, dx);
+
+                        moveAnswer.playerMoved();
+
+                        visualiser.drawFullGameScreen();
+
+                        if (state != Death) {
+                            nextTurn();
+                        } else {
+                            visualiser.drawGrey();
+                        }
+                    }
+                    break;
+
+                case MonsterTurn:
+                    ai.calculatePath(player.getY(), player.getX());
+
+                    ArrayList<Monster> creatures = Layer1.getInstance().creatures;
+
+                    LinkedList<Monster> queue = new LinkedList<>();
+                    queue.addAll(creatures);
+
+                    while (!queue.isEmpty()) {
+                        Monster creature = queue.poll();
+                        Pair<Integer, Integer> cur = ai.monsterMove(creature.getY(), creature.getX(), 1000);
+
+                        Visualiser visualiser = Visualiser.getInstance();
+
+                        try {
+                            thread.wait();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        System.out.println("Success");
+
+                        creature.move(cur.getKey(), cur.getValue());
+                        moveAnswer.monsterMoved(creature);
+
+                        visualiser.drawFullGameScreen();
+                    }
+
+                    state = PlayerTurn;
+                    break;
+            }
+        }
+    }
+
+    public void threadHeart() {
+        while (true) {
+            if (state == MonsterTurn) {
+                ai.calculatePath(player.getY(), player.getX());
+
+                ArrayList<Monster> creatures = Layer1.getInstance().creatures;
+
+                LinkedList<Monster> queue = new LinkedList<>();
+                queue.addAll(creatures);
+
+                while (!queue.isEmpty()) {
+                    Monster creature = queue.poll();
+                    Pair<Integer, Integer> cur = ai.monsterMove(creature.getY(), creature.getX(), 1000);
+
+                    Visualiser visualiser = Visualiser.getInstance();
+
+                    try {
+                        thread.wait();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.println("Success");
+
+                    creature.move(cur.getKey(), cur.getValue());
+                    moveAnswer.monsterMoved(creature);
+
+                    visualiser.drawFullGameScreen();
+                }
+
+                state = PlayerTurn;
+            } else
+                try {
+                    thread.wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
     public void ePressed() {
@@ -122,42 +244,8 @@ public class TurningStateMachine {
         public void run() {
             synchronized (this) {
                 try {
-                    while (true) {
-                        if (turningStateMachine.state == MonsterTurn) {
-                            turningStateMachine.ai.calculatePath(turningStateMachine.player.getY(), turningStateMachine.player.getX());
-
-                            ArrayList<Monster> creatures = Layer1.getInstance().creatures;
-
-                            LinkedList<Monster> queue = new LinkedList<>();
-                            queue.addAll(creatures);
-
-                            while (!queue.isEmpty()) {
-                                Monster creature = queue.poll();
-                                Pair<Integer, Integer> cur = turningStateMachine.ai.monsterMove(creature.getY(), creature.getX(), 1000);
-
-                                Visualiser visualiser = Visualiser.getInstance();
-
-                                try {
-                                    this.wait();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                                System.out.println("Success");
-
-                                creature.move(cur.getKey(), cur.getValue());
-                                turningStateMachine.moveAnswer.monsterMoved(creature);
-
-                                visualiser.drawFullGameScreen();
-                            }
-                        }else
-                            try {
-                                this.wait();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                    }
-                }catch (Exception e){
+                    turningStateMachine.threadHeart();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
