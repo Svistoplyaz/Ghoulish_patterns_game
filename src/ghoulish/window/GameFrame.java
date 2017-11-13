@@ -42,10 +42,7 @@ public class GameFrame extends JFrame {
                     } else if (code == KeyEvent.VK_E) {
                         turn.ePressed();
                     } else if (code == KeyEvent.VK_R) {
-                        System.out.println("1");
-
-                        System.out.println("2");
-                        turn.thread.notifyAll();
+                        turn.startGame();
                     } else if (code == KeyEvent.VK_SPACE) {
                         turn.spacePressed();
                     }

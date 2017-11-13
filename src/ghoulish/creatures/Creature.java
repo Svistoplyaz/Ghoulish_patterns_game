@@ -9,13 +9,15 @@ public abstract class Creature {
     int y;
     int x;
     int hp;
+    public int yourTurn;
     String textureName;
 
-    public Creature(int _y, int _x, int _hp, String texture) {
+    public Creature(int _y, int _x, int _hp, String texture, int tu) {
         y = _y;
         x = _x;
         hp = _hp;
         textureName = texture;
+        yourTurn = tu;
     }
 
     public int getX() {

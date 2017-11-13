@@ -7,8 +7,8 @@ import java.io.FileReader;
 public class Player extends Creature {
     public static Player instance;
 
-    private Player(int _y, int _x, int _hp, String texture){
-        super(_y, _x, _hp, texture);
+    private Player(int _y, int _x, int _hp, String texture,int tu){
+        super(_y, _x, _hp, texture, tu);
     }
 
     public static Player getInstance() {
@@ -20,7 +20,7 @@ public class Player extends Creature {
                     y = tk.nextInt();
                     x = tk.nextInt();
 
-                instance = new Player(y,x,1,"resources/Creature/Player/Player.png");
+                instance = new Player(y,x,1,"resources/Creature/Player/Player.png", 0);
             }catch (Exception e){
                 e.printStackTrace();
             }
