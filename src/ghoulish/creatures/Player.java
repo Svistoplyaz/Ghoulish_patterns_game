@@ -20,7 +20,7 @@ public class Player extends Creature {
                     y = tk.nextInt();
                     x = tk.nextInt();
 
-                instance = new Player(y,x,9,"resources/Creature/Player/Player.png", 0);
+                instance = new Player(y,x,9,"resources/Creature/Player/Player.png", 1);
             }catch (Exception e){
                 e.printStackTrace();
             }

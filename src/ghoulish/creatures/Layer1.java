@@ -15,7 +15,7 @@ public class Layer1 {
             int n = tk.nextInt();
 
             for (int i = 0; i < n; i++)
-                creatures.add(new Monster(tk.nextInt(), tk.nextInt(), 1, "resources/Creature/Monster/Monster.png", 0));
+                creatures.add(new Monster(tk.nextInt(), tk.nextInt(), 1, "resources/Creature/Monster/Monster.png", 1));
         } catch (Exception e) {
 
         }
@@ -49,7 +49,7 @@ public class Layer1 {
 
     public boolean allMonstersMoved(int turn){
         for(Monster mon : creatures){
-            if(mon.yourTurn != turn)
+            if(mon.yourTurn != (turn+1))
                 return false;
         }
 
