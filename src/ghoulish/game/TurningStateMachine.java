@@ -1,15 +1,12 @@
 package ghoulish.game;
 
 import ghoulish.creatures.*;
-import ghoulish.util.MoveAnswer;
 import ghoulish.window.Visualiser;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static ghoulish.game.State.*;
-import static ghoulish.util.MoveAnswer.Answer.*;
 
 public class TurningStateMachine {
     static TurningStateMachine instance;
@@ -18,7 +15,7 @@ public class TurningStateMachine {
     Player player = Player.getInstance();
     MoveAnswer moveAnswer = MoveAnswer.getInstance();
     public final MyThread thread = new MyThread(this);
-    public String pressedKey;
+    public char pressedKey;
     public int turn;
     public Battle currentBattle;
 
@@ -59,13 +56,19 @@ public class TurningStateMachine {
 //    }
 
     private void nextTurn() {
-        state = MonsterTurn;
+        changeState(MonsterTurn);
 
         //Запуск потока обработки ходов противников
 
 //        synchronized (thread) {
 //            thread.notify();
 //        }
+    }
+
+    public void changeState(State newstate){
+        if(state == Death)
+            return;
+        state = newstate;
     }
 
     public void startGame(){
@@ -83,16 +86,23 @@ public class TurningStateMachine {
 
                     }
 
-                    int dy;
-                    int dx;
+                    int dy = 0;
+                    int dx = 0;
 
-                    if (pressedKey.equals("W")) dy = -1;
-                    else if (pressedKey.equals("S")) dy = 1;
-                    else dy = 0;
-
-                    if (pressedKey.equals("A")) dx = -1;
-                    else if (pressedKey.equals("D")) dx = 1;
-                    else dx = 0;
+                    switch(pressedKey){
+                        case 'w':
+                            dy = -1;
+                            break;
+                        case 's':
+                            dy = 1;
+                            break;
+                        case 'a':
+                            dx = -1;
+                            break;
+                        case 'd':
+                            dx = 1;
+                            break;
+                    }
 
                     int y = player.getY() + dy;
                     int x = player.getX() + dx;
@@ -105,7 +115,7 @@ public class TurningStateMachine {
                             break;
                         case startBattle:
                             currentBattle = new Battle(player, Layer1.getInstance().getMonster(y, x));
-                            state = Battle;
+                            changeState(Battle);
 
                     }
                     if(player.yourTurn == turn)
@@ -133,7 +143,7 @@ public class TurningStateMachine {
                                     break;
                                 case startBattle:
                                     currentBattle = new Battle(monster, player);
-                                    state = Battle;
+                                    changeState(Battle);
                             }
                             if(state == Battle)
                                 break;
@@ -143,16 +153,29 @@ public class TurningStateMachine {
                     }
 
                     if (Layer1.getInstance().allMonstersMoved(turn)) {
-                        state = PlayerTurn;
+                        changeState(PlayerTurn);
                         turn++;
                     }
                     break;
 
                 case Death:
                     visualiser.drawGrey();
+                    try {
+                        thread.wait();
+                    } catch (Exception e) {
+
+                    }
                     break;
                 case Battle:
-                    moveAnswer.fight(currentBattle);
+                    try {
+                        thread.wait();
+                    } catch (Exception e) {
+
+                    }
+
+                    int num = Character.getNumericValue(pressedKey);
+                    if(moveAnswer.fight(currentBattle, num))
+                        changeState(MonsterTurn);
                     visualiser.drawFullGameScreen();
             }
         }
@@ -198,47 +221,39 @@ public class TurningStateMachine {
 //        }
 //    }
 
-    public void ePressed() {
-        if (state == PlayerTurn) {
-            moveAnswer.playerTryToLoot();
+    public void pressKey(char key){
+        pressedKey = key;
+        switch (pressedKey) {
+            case ' ':
+                nextTurn();
+                break;
+            case 'e':
+                moveAnswer.playerTryToLoot();
+                break;
+            case 'r':
+                thread.start();
+                break;
         }
-    }
-
-    public void wPressed() {
-        pressedKey = "W";
+//        switch (pressedKey){
+//            case 'w':
+//            case 'a':
+//            case 's':
+//            case 'd':
+//                if(state == PlayerTurn)
+//                    thread.notifyAll();
+//                break;
+//
+//            case '1':
+//            case '2':
+//            case '3':
+//            case '4':
+//            case '5':
+//            case '6':
+//                if(state == Battle)
+//                    thread.notifyAll();
+//                break;
+//        }
         thread.notifyAll();
-    }
-
-    public void aPressed() {
-        pressedKey = "A";
-        thread.notifyAll();
-    }
-
-    public void sPressed() {
-        pressedKey = "S";
-        thread.notifyAll();
-    }
-
-    public void dPressed() {
-        pressedKey = "D";
-        thread.notifyAll();
-    }
-
-    public void spacePressed() {
-        nextTurn();
-        thread.notifyAll();
-    }
-
-    public static class Trio {
-        Creature cr;
-        int x;
-        int y;
-
-        Trio(Creature creature, int dx, int dy) {
-            cr = creature;
-            x = dx;
-            y = dy;
-        }
     }
 
     public static class MyThread extends Thread {

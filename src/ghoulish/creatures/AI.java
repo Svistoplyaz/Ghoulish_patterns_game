@@ -1,7 +1,7 @@
 package ghoulish.creatures;
 
 import ghoulish.labyrinth.Labyrinth;
-import ghoulish.util.MoveAnswer;
+import ghoulish.game.MoveAnswer;
 import javafx.util.Pair;
 
 import java.util.ArrayList;

@@ -7,16 +7,25 @@ import ghoulish.labyrinth.Labyrinth;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GamePanel extends JPanel {
     static GamePanel instance;
     BufferedImage image;
+    Font font;
 
     private GamePanel(){
         Labyrinth lab = Labyrinth.getInstance();
         int height = (lab.getN()) * Main.scale;
         int width = (lab.getM()) * Main.scale;
         this.setSize(width, height);
+
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font.ttf"));
+        } catch (IOException |FontFormatException e) {
+            e.printStackTrace();
+        }
 
         this.setVisible(true);
     }
@@ -34,6 +43,9 @@ public class GamePanel extends JPanel {
     @Override
     public void paint(Graphics g){
         g.drawImage(image,0,0,null);
+//        g.setFont(font.deriveFont(20.0f));
+//        g.setColor(Color.WHITE);
+//        g.drawString("This is gona be awesome", 200, 200);
     }
 
     @Override

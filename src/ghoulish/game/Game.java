@@ -1,11 +1,5 @@
 package ghoulish.game;
 
-import ghoulish.Main;
-import ghoulish.creatures.Player;
-import ghoulish.labyrinth.Labyrinth;
-import ghoulish.labyrinth.Part;
-import ghoulish.util.MoveAnswer;
-
 public class Game {
 //    private Labyrinth lab;
 //    private int height, width;

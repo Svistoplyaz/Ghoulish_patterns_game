@@ -30,22 +30,7 @@ public class GameFrame extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 synchronized (thread) {
-                    int code = e.getKeyCode();
-                    if (code == KeyEvent.VK_W) {
-                        turn.wPressed();
-                    } else if (code == KeyEvent.VK_A) {
-                        turn.aPressed();
-                    } else if (code == KeyEvent.VK_S) {
-                        turn.sPressed();
-                    } else if (code == KeyEvent.VK_D) {
-                        turn.dPressed();
-                    } else if (code == KeyEvent.VK_E) {
-                        turn.ePressed();
-                    } else if (code == KeyEvent.VK_R) {
-                        turn.startGame();
-                    } else if (code == KeyEvent.VK_SPACE) {
-                        turn.spacePressed();
-                    }
+                    turn.pressKey(e.getKeyChar());
                 }
             }
 

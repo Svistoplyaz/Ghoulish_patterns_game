@@ -59,4 +59,11 @@ public abstract class Creature {
     public BufferedImage getTexture(){
         return TextureContainer.getTexture(textureName);
     }
+    public boolean isAlive(){
+        return hp>0;
+    }
+
+    public boolean isDead(){
+        return !isAlive();
+    }
 }
