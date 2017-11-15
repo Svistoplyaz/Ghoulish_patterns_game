@@ -1,11 +1,10 @@
 package ghoulish.graphics;
 
 import ghoulish.Main;
-import ghoulish.creatures.Creature;
 import ghoulish.creatures.Layer1;
 import ghoulish.creatures.Monster;
 import ghoulish.creatures.Player;
-import ghoulish.labyrinth.Labyrinth;
+import ghoulish.labyrinth.Layer0;
 import ghoulish.labyrinth.Part;
 import ghoulish.util.TextureContainer;
 import ghoulish.window.GamePanel;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 public class Visualiser {
     private static Visualiser instance;
     public GamePanel gamePanel = GamePanel.getInstance();
-    private Labyrinth lab = Labyrinth.getInstance();
+    private Layer0 lab = Layer0.getInstance();
     private ArrayList<Monster> mobs = Layer1.getInstance().creatures;
     private BufferedImage background;
     private Player player = Player.getInstance();

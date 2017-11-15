@@ -13,7 +13,6 @@ public class StaticMonster extends Monster implements Cloneable {
         return false;
     }
 
-    @Override
     public boolean smart() {
         return false;
     }

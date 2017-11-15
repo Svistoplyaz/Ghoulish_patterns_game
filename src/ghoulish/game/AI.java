@@ -1,7 +1,7 @@
 package ghoulish.game;
 
-import ghoulish.labyrinth.Labyrinth;
-import ghoulish.game.MoveAnswer;
+import ghoulish.creatures.Monster;
+import ghoulish.labyrinth.Layer0;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class AI {
     private int px, py;
 
     public AI(MoveAnswer _moveAnswer){
-        path = new int[Labyrinth.getInstance().getN()][Labyrinth.getInstance().getM()];
+        path = new int[Layer0.getInstance().getN()][Layer0.getInstance().getM()];
         moveAnswer = _moveAnswer;
     }
 
@@ -59,24 +59,26 @@ public class AI {
                 }
             }
         }
-
-        int lol = 1;
     }
 
-    public Pair<Integer, Integer> monsterMove(int my, int mx, int angerRange){
-        if(path[my][mx] == -2)
+    public Pair<Integer, Integer> monsterMove(Monster monster, int angerRange){
+        int my = monster.getY();
+        int mx = monster.getX();
+        if(!monster.dynamic())
             return new Pair<>(0,0);
-        if(path[my][mx] == -1 || Math.sqrt((px-mx)*(px-mx) + (py-my)*(py-my)) > angerRange || !moveAnswer.canMoveMonster(my + possibleMoves[path[my][mx]][0], mx+ possibleMoves[path[my][mx]][1]))
-            return randomMove(my, mx);
-
+        if(monster.blind() || path[my][mx] == -1 || Math.sqrt((px-mx)*(px-mx) + (py-my)*(py-my)) > angerRange ||
+                !moveAnswer.canMoveMonster(my + possibleMoves[path[my][mx]][0], mx+ possibleMoves[path[my][mx]][1],false))
+            return randomMove(monster);
 
         return new Pair<>(possibleMoves[path[my][mx]][0], possibleMoves[path[my][mx]][1]);
     }
 
-    private Pair<Integer, Integer> randomMove(int my, int mx){
+    private Pair<Integer, Integer> randomMove(Monster monster){
+        int my = monster.getY();
+        int mx = monster.getX();
         ArrayList<Integer> possibilities = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
-            if(moveAnswer.canMoveMonster(my + possibleMoves[i][0],mx + possibleMoves[i][1])){
+            if(moveAnswer.canMoveMonster(my + possibleMoves[i][0],mx + possibleMoves[i][1],monster.smart())){
                 possibilities.add(i);
             }
         }
@@ -84,6 +86,23 @@ public class AI {
         int len = possibilities.size();
         if(len == 0)
             return new Pair<>(0,0);
+
+        int index = possibilities.get(random.nextInt(len));
+
+        return new Pair<>(possibleMoves[index][0], possibleMoves[index][1]);
+    }
+
+    Pair<Integer, Integer> birthPlace(int my, int mx){
+        ArrayList<Integer> possibilities = new ArrayList<>();
+        for(int i = 0; i < 4; i++) {
+            if(moveAnswer.canMoveMonster(my + possibleMoves[i][0],mx + possibleMoves[i][1],true)){
+                possibilities.add(i);
+            }
+        }
+
+        int len = possibilities.size();
+        if(len == 0)
+            return null;
 
         int index = possibilities.get(random.nextInt(len));
 

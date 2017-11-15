@@ -1,7 +1,7 @@
 package ghoulish.game;
 
 import ghoulish.creatures.*;
-import ghoulish.labyrinth.Labyrinth;
+import ghoulish.labyrinth.Layer0;
 import ghoulish.labyrinth.Part;
 import ghoulish.graphics.Visualiser;
 import javafx.util.Pair;
@@ -15,7 +15,7 @@ public class MoveAnswer {
         canMove, cannotMove, startBattle;
     }
 
-    private Labyrinth lab = Labyrinth.getInstance();
+    private Layer0 lab = Layer0.getInstance();
     private Layer1 layer1 = Layer1.getInstance();
     private Player player = Player.getInstance();
     private Random random = new Random();
@@ -46,7 +46,7 @@ public class MoveAnswer {
     }
 
     public Answer moveMonster(Monster monster) {
-        Pair<Integer, Integer> cur = ai.monsterMove(monster.getY(), monster.getX(), 1000);
+        Pair<Integer, Integer> cur = ai.monsterMove(monster, 1000);
         if (noPlayer(monster.getY() + cur.getKey(), monster.getX() + cur.getValue())) {
             monster.move(cur.getKey(), cur.getValue());
             monsterMoved(monster);
@@ -56,7 +56,9 @@ public class MoveAnswer {
         }
     }
 
-    public boolean canMoveMonster(int y, int x) {
+    public boolean canMoveMonster(int y, int x, boolean smart) {
+        if (smart)
+            return !lab.getPart(y, x).hasTrap() && lab.canMoveHere(y, x) && !layer1.hasMonster(y, x);
         return lab.canMoveHere(y, x) && !layer1.hasMonster(y, x);
     }
 
@@ -133,5 +135,17 @@ public class MoveAnswer {
         }
 
         return creature1.isDead() || creature2.isDead();
+    }
+
+    public void placeToBorn(StaticMonster monster) {
+        Pair<Integer, Integer> place = ai.birthPlace(monster.getY(), monster.getX());
+        if(place!=null) {
+            StaticMonster newBorn = monster.clone();
+
+            newBorn.move(place.getKey(), place.getValue());
+            newBorn.yourTurn++;
+
+            layer1.creatures.add(newBorn);
+        }
     }
 }

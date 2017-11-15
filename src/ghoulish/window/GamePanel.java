@@ -1,8 +1,7 @@
 package ghoulish.window;
 
 import ghoulish.Main;
-import ghoulish.creatures.Creature;
-import ghoulish.labyrinth.Labyrinth;
+import ghoulish.labyrinth.Layer0;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +15,7 @@ public class GamePanel extends JPanel {
     Font font;
 
     private GamePanel(){
-        Labyrinth lab = Labyrinth.getInstance();
+        Layer0 lab = Layer0.getInstance();
         int height = (lab.getN()) * Main.scale;
         int width = (lab.getM()) * Main.scale;
         this.setSize(width, height);

@@ -5,10 +5,12 @@ public class BlindMonster extends Monster {
         super(_y, _x, _hp, texture, tu);
     }
 
+    @Override
     public boolean blind(){
         return true;
     }
 
+    @Override
     public boolean dynamic(){
         return true;
     }

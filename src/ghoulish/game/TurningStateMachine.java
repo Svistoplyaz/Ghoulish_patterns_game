@@ -103,12 +103,14 @@ public class TurningStateMachine implements KeyReader {
                     while (monsters.hasNext()) {
                         Monster monster = (Monster) monsters.next();
 
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            Thread.sleep(100);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
 
+                        if (monster instanceof StaticMonster && turn % 5 == 0)
+                            moveAnswer.placeToBorn((StaticMonster) monster);
                         switch (moveAnswer.moveMonster(monster)) {
                             case canMove:
                                 monster.yourTurn++;

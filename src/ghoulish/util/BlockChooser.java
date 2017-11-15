@@ -108,20 +108,11 @@ public class BlockChooser {
     }
 
     private Part chooseFloor(int y, int x, String s) {
-        boolean skeleton = s.contains("S"), trap = s.contains("T"), door = s.contains("D");
+        FloorBuilder fbuilder = new FloorBuilder(y,x,s);
+        Director director = new Director(fbuilder);
+        director.construct();
 
-        Part ans = new Floor(y, x, textureFloor + "Floor.png");
-
-        if (trap)
-            ans = new Trap(y, x, ans, textureFloor + "Trap.png");
-
-        if (skeleton)
-            ans = new Bones(y, x, ans, textureFloor + "Bones.png");
-
-        if(door)
-            ans = new Door(y, x, ans,textureFloor + "DoorClosed.png");
-
-        return ans;
+        return fbuilder.getResult();
     }
 
 }

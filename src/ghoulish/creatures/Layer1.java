@@ -1,24 +1,23 @@
 package ghoulish.creatures;
 
-import ghoulish.util.Tokenizer;
+import ghoulish.util.IMonsterGiver;
+import ghoulish.util.MonsterPlacer;
+import ghoulish.util.MonsterReader;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Layer1 {
     private static Layer1 instance = null;
     public ArrayList<Monster> creatures = new ArrayList<>();
+    final boolean clever = true;
 
     private Layer1() {
-        try {
-            Tokenizer tk = new Tokenizer(new FileReader("resources/Monsters.in"));
-            int n = tk.nextInt();
-
-            for (int i = 0; i < n; i++)
-                creatures.add(new Monster(tk.nextInt(), tk.nextInt(), 1, "resources/Creature/Monster/Monster.png", 1));
-        } catch (Exception e) {
-
-        }
+        IMonsterGiver monsterGiver;
+        if(clever)
+            monsterGiver = new MonsterPlacer();
+        else
+            monsterGiver = new MonsterReader();
+        creatures = monsterGiver.readMonsters();
     }
 
     public static synchronized Layer1 getInstance() {

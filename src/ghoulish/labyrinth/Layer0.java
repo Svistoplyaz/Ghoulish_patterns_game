@@ -3,12 +3,12 @@ package ghoulish.labyrinth;
 import ghoulish.creatures.Creature;
 import ghoulish.util.BlockChooser;
 
-public class Labyrinth {
-    private static Labyrinth instance = null;
+public class Layer0 {
+    private static Layer0 instance = null;
     private Part[][] parts;
     private int n, m;
 
-    private Labyrinth(){
+    private Layer0(){
         BlockChooser blockChooser = new BlockChooser();
 
         parts = blockChooser.constructLab();
@@ -16,9 +16,9 @@ public class Labyrinth {
         m = blockChooser.getM();
     }
 
-    public static synchronized Labyrinth getInstance() {
+    public static synchronized Layer0 getInstance() {
         if (instance == null)
-            instance = new Labyrinth();
+            instance = new Layer0();
         return instance;
     }
 
