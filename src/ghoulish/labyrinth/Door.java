@@ -2,7 +2,7 @@ package ghoulish.labyrinth;
 
 import javafx.util.Pair;
 
-public class Door extends Part {
+public class Door extends PartDecorator {
     private boolean opened = false;
     public Door(int i, int j, Part _p, String s){
         super(i,j,_p,s);
@@ -15,5 +15,9 @@ public class Door extends Part {
 
     public boolean attemptMove(){
         return opened;
+    }
+
+    public boolean hasDoor() {
+        return true;
     }
 }

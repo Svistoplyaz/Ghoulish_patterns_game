@@ -1,4 +1,4 @@
-package ghoulish.window;
+package ghoulish.graphics;
 
 import ghoulish.Main;
 import ghoulish.creatures.Creature;
@@ -8,6 +8,7 @@ import ghoulish.creatures.Player;
 import ghoulish.labyrinth.Labyrinth;
 import ghoulish.labyrinth.Part;
 import ghoulish.util.TextureContainer;
+import ghoulish.window.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -57,34 +58,39 @@ public class Visualiser {
         Graphics g = background.getGraphics();
 
         Part part = lab.getPart(y, x);
-        g.drawImage(part.getTexture(), part.getPictureX(), part.getPictureY(), Main.scale, Main.scale, null);
-
+        draw(g, part);
+//        g.drawImage(part.getTexture(), part.getPictureX(), part.getPictureY(), Main.scale, Main.scale, null);
     }
 
     public void drawFullGameScreen() {
-        gamescreen = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Composite composite = new Composite(width, height);
 
+        composite.addElement(lab.getParts());
+        for (Monster creature : mobs) {
+            composite.addElement(creature);
+        }
+        composite.addElement(player);
+
+        gamescreen = composite.getTexture();
         Graphics g = gamescreen.getGraphics();
 
-        g.drawImage(background, 0, 0, null);
+//        g.drawImage(background, 0, 0, null);
 
         int quant = player.getHp();
 
         int i;
         for (i = 0; i < quant / 2; i++) {
-            g.drawImage(TextureContainer.getTexture("resources/Creature/Player/FullHeart.png"), i * Main.scale / 2, 0, Main.scale / 2, Main.scale / 2, null);
+            draw(g,TextureContainer.getTexture("resources/Creature/Player/FullHeart.png"), i * 1.0 / 2, 0.0, 0.5, 0.5);
         }
         if (quant % 2 == 1) {
-            g.drawImage(TextureContainer.getTexture("resources/Creature/Player/HalfHeart.png"), i * Main.scale / 2, 0, Main.scale / 2, Main.scale / 2, null);
+            draw(g,TextureContainer.getTexture("resources/Creature/Player/HalfHeart.png"), i * 1.0 / 2, 0.0, 0.5, 0.5);
         }
 
-        for (Creature creature : mobs) {
-            drawCreature(g, creature);
-//            g.drawImage(creature.getTexture(), creature.getPictureX(), creature.getPictureY(), Main.scale, Main.scale, null);
-        }
+//        for (Creature creature : mobs) {
+//            draw(g, creature);
+//        }
 
-        drawCreature(g, player);
-//        g.drawImage(player.getTexture(), player.getPictureX(), player.getPictureY(), Main.scale, Main.scale, null);
+//        draw(g, player);
 
         repaint();
     }
@@ -102,12 +108,13 @@ public class Visualiser {
         repaint();
     }
 
-    public void drawCreature(Graphics g, Creature creature) {
-        drawThing(g, creature.getTexture(), creature.getX(), creature.getY());
+
+    public void draw(Graphics g, TextureHolder textureHolder) {
+        g.drawImage(textureHolder.getTexture(), textureHolder.getX() * Main.scale, textureHolder.getY() * Main.scale, Main.scale, Main.scale, null);
     }
 
-    public void drawThing(Graphics g, BufferedImage image, int x, int y) {
-        g.drawImage(image, x * Main.scale, y * Main.scale, Main.scale, Main.scale, null);
+    public void draw(Graphics g, BufferedImage texture, double x, double y, double scaleX, double scaleY) {
+        g.drawImage(texture, (int) (x * Main.scale), (int) (y * Main.scale), (int)(scaleX*Main.scale), (int)(scaleY*Main.scale), null);
     }
 
     public void repaint() {

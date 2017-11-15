@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Trap extends Part {
+public class Trap extends PartDecorator {
     private boolean dangerous;
 
     public Trap(int i, int j, Part _p, String s){
@@ -18,4 +18,12 @@ public class Trap extends Part {
         return true;
     }
 
+    @Override
+    public Part collapseDanger() {
+        return parent;
+    }
+
+    public boolean hasTrap() {
+        return true;
+    }
 }

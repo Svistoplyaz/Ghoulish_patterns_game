@@ -1,39 +1,22 @@
 package ghoulish.creatures;
 
 import ghoulish.Main;
+import ghoulish.graphics.TextureHolder;
 import ghoulish.util.TextureContainer;
 
 import java.awt.image.BufferedImage;
 
-public abstract class Creature {
-    int y;
-    int x;
+public abstract class Creature extends TextureHolder{
     int hp;
     public int yourTurn;
-    String textureName;
 
-    public Creature(int _y, int _x, int _hp, String texture, int tu) {
+    public Creature(int _y, int _x, int _hp, String _texture, int tu) {
         y = _y;
         x = _x;
         hp = _hp;
-        textureName = texture;
+        textureName = _texture;
         yourTurn = tu;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getPictureX() {
-        return x * Main.scale;
-    }
-
-    public int getPictureY() {
-        return y * Main.scale;
+        priority = 2;
     }
 
     public int getHp() {
@@ -42,8 +25,7 @@ public abstract class Creature {
 
     public boolean inflictDamage(int damage) {
         hp -= damage;
-
-        return hp > 0;
+        return hp < 1;
     }
 
     public void move(int dy, int dx) {
@@ -51,14 +33,7 @@ public abstract class Creature {
         x += dx;
     }
 
-    public void move(double dy, double dx) {
-        y += dy;
-        x += dx;
-    }
 
-    public BufferedImage getTexture(){
-        return TextureContainer.getTexture(textureName);
-    }
     public boolean isAlive(){
         return hp>0;
     }

@@ -1,125 +1,47 @@
 package ghoulish.labyrinth;
 
-import ghoulish.Main;
-import ghoulish.util.TextureContainer;
-
-import java.awt.image.BufferedImage;
+import ghoulish.graphics.TextureHolder;
 
 
-public abstract class Part {
-    String textureName;
-    Part parent = null;
-    int y;
-    int x;
-
-    Part(int i, int j, Part _parent, String s) {
-        y = i;
-        x = j;
-        parent = _parent;
-        textureName = s;
-    }
-
+public abstract class Part extends TextureHolder {
     Part(int i, int j, String s) {
         y = i;
         x = j;
         textureName = s;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getPictureY() {
-        return y * Main.scale;
-    }
-
-    public int getPictureX() {
-        return x * Main.scale;
+        priority = 1;
     }
 
     public abstract boolean attemptMove();
 
-    public BufferedImage getTexture() {
-        return TextureContainer.getTexture(this.getTextureName());
-    }
-
-    public String getTextureName() {
-        if (this.parent == null)
-            return textureName;
-
-        return this.parent.getTextureName() + " " + textureName;
-    }
-
     public boolean trapCheck() {
-        return parent != null && parent.trapCheck();
-
+        return false;
     }
 
     public boolean lootCheck() {
-        return parent != null && parent.lootCheck();
-    }
-
-    public Part collapseDanger() {
-        if (this instanceof Trap)
-            return parent;
-
-        if (this.parent instanceof Trap) {
-            this.parent = this.parent.parent;
-            return this;
-        } else if (parent != null)
-            return parent.collapseDanger();
-
-        return null;
-    }
-
-    public Part collapseLoot() {
-        if (this instanceof Bones)
-            return parent;
-
-        if (this.parent instanceof Bones) {
-            this.parent = this.parent.parent;
-
-            return this;
-        } else if (parent != null)
-            return parent.collapseLoot();
-
-        return null;
-    }
-
-    public Part getParent() {
-        return parent;
+        return false;
     }
 
     public boolean hasTrap() {
-        if (this.parent == null)
-            return false;
-
-        return this instanceof Trap || parent.hasTrap();
-
+        return false;
     }
 
     public boolean hasDoor() {
-        if (this.parent == null)
-            return false;
-
-        return this instanceof Door || parent.hasDoor();
+        return false;
     }
 
     public boolean hasLoot() {
-        if (this.parent == null)
-            return false;
-
-        return this instanceof Bones || parent.hasLoot();
+        return false;
     }
 
-    public void openDoor() {
-        if (parent == null)
-            return;
+    public void openDoor(){
 
-        parent.openDoor();
+    }
+
+    public Part collapseLoot() {
+        return this;
+    }
+
+    public Part collapseDanger() {
+        return this;
     }
 }

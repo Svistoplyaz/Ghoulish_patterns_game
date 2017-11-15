@@ -1,16 +1,19 @@
 package ghoulish.window;
 
-import ghoulish.Main;
-import ghoulish.game.Game;
-import ghoulish.game.TurningStateMachine;
+import ghoulish.game.KeyReader;
+import ghoulish.graphics.Visualiser;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.im.InputContext;
+import java.util.Locale;
 
 public class GameFrame extends JFrame {
     //    Game game = Main.game;
-    TurningStateMachine turn = TurningStateMachine.getInstance();
+//    TurningStateMachine turn = TurningStateMachine.getInstance();
+    KeyReader turn = new TurningMachineProxy();
+    KeyReader adapter = new LanguageAdapter(turn);
 
     public GameFrame() {
         this.setLocation(20, 20);
@@ -19,7 +22,6 @@ public class GameFrame extends JFrame {
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
-        TurningStateMachine.MyThread thread = TurningStateMachine.getInstance().thread;
 
         this.addKeyListener(new KeyListener() {
             @Override
@@ -29,8 +31,15 @@ public class GameFrame extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                synchronized (thread) {
-                    turn.pressKey(e.getKeyChar());
+                Locale locale = InputContext.getInstance().getLocale();
+                switch (locale.getLanguage()){
+                    case "ru":
+                        adapter.pressKey(e.getKeyChar());
+                        break;
+                    case "en":
+                        turn.pressKey(e.getKeyChar());
+                        break;
+                    default:
                 }
             }
 

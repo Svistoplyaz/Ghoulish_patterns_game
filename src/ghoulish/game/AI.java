@@ -1,4 +1,4 @@
-package ghoulish.creatures;
+package ghoulish.game;
 
 import ghoulish.labyrinth.Labyrinth;
 import ghoulish.game.MoveAnswer;
@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class AI {
-    private MoveAnswer moveAnswer = MoveAnswer.getInstance();
+    private MoveAnswer moveAnswer;
     //Возможные направления для шага
     private int[][] possibleMoves = {{-1,0},{1,0},{0,-1},{0,1}};
     private Random random = new Random();
@@ -19,8 +19,9 @@ public class AI {
     //Позиция игрока
     private int px, py;
 
-    public AI(){
+    public AI(MoveAnswer _moveAnswer){
         path = new int[Labyrinth.getInstance().getN()][Labyrinth.getInstance().getM()];
+        moveAnswer = _moveAnswer;
     }
 
     private void clearPath(){

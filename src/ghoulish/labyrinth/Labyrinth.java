@@ -43,9 +43,6 @@ public class Labyrinth {
     }
 
     public Part checkForMove(int y, int x){
-//        if(y < 0 || x < 0 || y >= n || x >= m)
-//            return null;
-
         if(parts[y][x].attemptMove())
             return parts[y][x];
 

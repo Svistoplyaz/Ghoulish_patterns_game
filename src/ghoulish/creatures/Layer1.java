@@ -29,7 +29,7 @@ public class Layer1 {
 
     public boolean hasMonster(int y, int x) {
         for (Monster creature : creatures)
-            if (creature.y == y && creature.x == x)
+            if (creature.getY() == y && creature.getX() == x)
                 return true;
 
         return false;
@@ -37,7 +37,7 @@ public class Layer1 {
 
     public Monster getMonster(int y, int x) {
         for (Monster creature : creatures)
-            if (creature.y == y && creature.x == x)
+            if (creature.getY() == y && creature.getX() == x)
                 return creature;
 
         return null;
