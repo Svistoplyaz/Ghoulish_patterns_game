@@ -76,16 +76,18 @@ public class TurningStateMachine implements KeyReader {
                         int y = player.getY() + dy;
                         int x = player.getX() + dx;
 
-                        switch (moveAnswer.canMovePlayer(y, x)) {
-                            case canMove:
-                                player.move(dy, dx);
-                                moveAnswer.playerMoved();
-                                break;
-                            case startBattle:
-                                currentBattle = new Battle(player, Layer1.getInstance().getMonster(y, x));
-                                System.out.println(currentBattle.weakSpot + "");
-                                changeState(Battle);
+                        if(dy != 0 || dx != 0) {
+                            switch (moveAnswer.canMovePlayer(y, x)) {
+                                case canMove:
+                                    player.move(dy, dx);
+                                    moveAnswer.playerMoved();
+                                    break;
+                                case startBattle:
+                                    currentBattle = new Battle(player, Layer1.getInstance().getMonster(y, x));
+                                    System.out.println(currentBattle.weakSpot + "");
+                                    changeState(Battle);
 
+                            }
                         }
 
                         skipTurn();
@@ -166,6 +168,7 @@ public class TurningStateMachine implements KeyReader {
     }
 
     public void lootTile() {
+        pressedKey = 'e';
         moveAnswer.playerTryToLoot();
         thread.notifyAll();
     }
