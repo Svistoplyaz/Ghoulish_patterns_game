@@ -2,15 +2,17 @@ package ghoulish.game;
 
 import ghoulish.creatures.*;
 import ghoulish.graphics.Visualiser;
+import ghoulish.labyrinth.Layer0;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static ghoulish.game.State.*;
 
-public class TurningStateMachine implements KeyReader {
+public class TurningStateMachine implements KeyReader, ISubscriber {
     public State state;
     Player player = Player.getInstance();
+    Layer1 layer1 = Layer1.getInstance();
     MoveAnswer moveAnswer = new MoveAnswer();
     public final MyThread thread = new MyThread(this);
     public char pressedKey;
@@ -20,6 +22,8 @@ public class TurningStateMachine implements KeyReader {
     public TurningStateMachine() {
         state = None;
         turn = 1;
+        player.addSub(this);
+        layer1.addSub(this);
     }
 
     private void nextTurn() {
@@ -76,14 +80,14 @@ public class TurningStateMachine implements KeyReader {
                         int y = player.getY() + dy;
                         int x = player.getX() + dx;
 
-                        if(dy != 0 || dx != 0) {
+                        if (dy != 0 || dx != 0) {
                             switch (moveAnswer.canMovePlayer(y, x)) {
                                 case canMove:
                                     player.move(dy, dx);
                                     moveAnswer.playerMoved();
                                     break;
                                 case startBattle:
-                                    currentBattle = new Battle(player, Layer1.getInstance().getMonster(y, x));
+                                    currentBattle = new Battle(player, layer1.getMonster(y, x));
                                     System.out.println(currentBattle.weakSpot + "");
                                     changeState(Battle);
 
@@ -100,7 +104,7 @@ public class TurningStateMachine implements KeyReader {
 
                 case MonsterTurn:
 
-                    Iterator monsters = new MonsterIterator(turn, Layer1.getInstance().creatures);
+                    Iterator monsters = new MonsterIterator(turn, layer1.creatures);
 
                     while (monsters.hasNext()) {
                         Monster monster = (Monster) monsters.next();
@@ -128,7 +132,7 @@ public class TurningStateMachine implements KeyReader {
                         visualiser.drawFullGameScreen();
                     }
 
-                    if (Layer1.getInstance().allMonstersMoved(turn)) {
+                    if (layer1.allMonstersMoved(turn)) {
                         changeState(PlayerTurn);
                         nextTurn();
                     }
@@ -171,6 +175,47 @@ public class TurningStateMachine implements KeyReader {
         pressedKey = 'e';
         moveAnswer.playerTryToLoot();
         thread.notifyAll();
+    }
+
+    public Memento save() {
+        System.out.println(turn + " ");
+        Layer1 l1 = layer1;
+        try {
+            l1 = (Layer1) layer1.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        Player pl = Player.getInstance();
+        try {
+            pl = (Player) Player.getInstance().clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return new Memento(l1, pl, turn, state, currentBattle);
+    }
+
+    public void load(Memento memento) {
+        try {
+            Layer1.setInstance((Layer1) memento.getLayer1().clone());
+            Player.setInstance((Player) memento.getPlayer().clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        turn = memento.getTurn();
+        state = memento.getState();
+        currentBattle = memento.getBattle();
+        Visualiser.getInstance().drawFullGameScreen();
+    }
+
+    public void countDistance(){
+        for(Monster monster : layer1.creatures)
+            
+    }
+
+    @Override
+    public void update() {
+        player = Player.getInstance();
+        layer1 = Layer1.getInstance();
     }
 
     public static class MyThread extends Thread {

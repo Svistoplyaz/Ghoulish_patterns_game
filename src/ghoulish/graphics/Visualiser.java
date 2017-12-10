@@ -4,6 +4,7 @@ import ghoulish.Main;
 import ghoulish.creatures.Layer1;
 import ghoulish.creatures.Monster;
 import ghoulish.creatures.Player;
+import ghoulish.game.ISubscriber;
 import ghoulish.labyrinth.Layer0;
 import ghoulish.labyrinth.Part;
 import ghoulish.util.TextureContainer;
@@ -12,23 +13,26 @@ import ghoulish.window.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Visualiser {
+public class Visualiser implements ISubscriber {
     private static Visualiser instance;
     public GamePanel gamePanel = GamePanel.getInstance();
     private Layer0 lab = Layer0.getInstance();
+    private Player player = Player.getInstance();
     private ArrayList<Monster> mobs = Layer1.getInstance().creatures;
     private BufferedImage background;
-    private Player player = Player.getInstance();
     private int height = (lab.getN()) * Main.scale;
     private int width = (lab.getM()) * Main.scale;
-    BufferedImage gamescreen;
+    private BufferedImage gamescreen;
+    private LinkedList<ICommand> queue = new LinkedList<>();
 
-
-    public Visualiser() {
+    private Visualiser() {
         background = globalBackgroundRedraw();
 
         drawFullGameScreen();
+        Layer1.getInstance().addSub(this);
+        Player.getInstance().addSub(this);
     }
 
     public static Visualiser getInstance() {
@@ -73,8 +77,6 @@ public class Visualiser {
         gamescreen = composite.getTexture();
         Graphics g = gamescreen.getGraphics();
 
-//        g.drawImage(background, 0, 0, null);
-
         int quant = player.getHp();
 
         int i;
@@ -84,12 +86,6 @@ public class Visualiser {
         if (quant % 2 == 1) {
             draw(g,TextureContainer.getTexture("resources/Creature/Player/HalfHeart.png"), i * 1.0 / 2, 0.0, 0.5, 0.5);
         }
-
-//        for (Creature creature : mobs) {
-//            draw(g, creature);
-//        }
-
-//        draw(g, player);
 
         repaint();
     }
@@ -119,5 +115,11 @@ public class Visualiser {
     public void repaint() {
         gamePanel.setImage(gamescreen);
         gamePanel.repaint();
+    }
+
+    @Override
+    public void update() {
+        player = Player.getInstance();
+        mobs = Layer1.getInstance().creatures;
     }
 }

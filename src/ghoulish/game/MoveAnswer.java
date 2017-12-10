@@ -10,7 +10,8 @@ import java.util.Random;
 
 import static ghoulish.game.MoveAnswer.Answer.*;
 
-public class MoveAnswer {
+public class MoveAnswer implements ISubscriber {
+
     public enum Answer {
         canMove, cannotMove, startBattle;
     }
@@ -21,6 +22,10 @@ public class MoveAnswer {
     private Random random = new Random();
     private AI ai = new AI(this);
 
+    MoveAnswer() {
+        Layer1.getInstance().addSub(this);
+        Player.getInstance().addSub(this);
+    }
 
     public Answer canMovePlayer(int y, int x) {
         boolean canmove = lab.canMoveHere(y, x) || lab.getPart(y, x).hasDoor();
@@ -139,7 +144,7 @@ public class MoveAnswer {
 
     public void placeToBorn(StaticMonster monster) {
         Pair<Integer, Integer> place = ai.birthPlace(monster.getY(), monster.getX());
-        if(place!=null) {
+        if (place != null) {
             StaticMonster newBorn = monster.clone();
 
             newBorn.move(place.getKey(), place.getValue());
@@ -147,5 +152,11 @@ public class MoveAnswer {
 
             layer1.creatures.add(newBorn);
         }
+    }
+
+    @Override
+    public void update() {
+        layer1 = Layer1.getInstance();
+        player = Player.getInstance();
     }
 }

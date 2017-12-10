@@ -22,6 +22,10 @@ public class Layer0 {
         return instance;
     }
 
+    public static synchronized void setInstance(Layer0 layer0){
+        instance = layer0;
+    }
+
     public int getN(){
         return n;
     }
