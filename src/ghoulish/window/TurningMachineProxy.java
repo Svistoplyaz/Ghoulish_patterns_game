@@ -9,11 +9,12 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class TurningMachineProxy implements KeyReader {
-    TurningStateMachine turningStateMachine = new TurningStateMachine();
-    ArrayList<Memento> mementos = new ArrayList<>();
+    private TurningStateMachine turningStateMachine = new TurningStateMachine();
+    private ArrayList<Memento> mementos = new ArrayList<>();
 
     @Override
     public void pressKey(char key) {
+        System.out.println("=========================================");
         synchronized (turningStateMachine.thread) {
             switch (key) {
                 case '[':
@@ -28,6 +29,15 @@ public class TurningMachineProxy implements KeyReader {
                             turningStateMachine.load(choice);
                         }
                     }
+                    break;
+                case '0':
+                    turningStateMachine.countDistance();
+                    break;
+                case '9':
+                    turningStateMachine.showStatistics();
+                    break;
+                case '8':
+                    turningStateMachine.showHunting();
                     break;
                 default:
                     switch (turningStateMachine.state) {

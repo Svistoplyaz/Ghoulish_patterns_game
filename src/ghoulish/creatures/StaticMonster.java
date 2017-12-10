@@ -17,6 +17,10 @@ public class StaticMonster extends Monster implements Cloneable {
         return false;
     }
 
+    public void accept(IVisitor visitor){
+        visitor.visit(this);
+    }
+
     @Override
     public StaticMonster clone() {
         return new StaticMonster(y, x, hp, textureName, yourTurn);

@@ -16,4 +16,8 @@ public class CleverMonster extends Monster {
     public boolean smart() {
         return true;
     }
+
+    public void accept(IVisitor visitor){
+        visitor.visit(this);
+    }
 }

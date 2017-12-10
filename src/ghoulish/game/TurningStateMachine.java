@@ -1,6 +1,7 @@
 package ghoulish.game;
 
 import ghoulish.creatures.*;
+import ghoulish.graphics.DistanceCommand;
 import ghoulish.graphics.Visualiser;
 import ghoulish.labyrinth.Layer0;
 
@@ -209,7 +210,20 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
 
     public void countDistance(){
         for(Monster monster : layer1.creatures)
-            
+            if(monster instanceof CleverMonster)
+                Visualiser.getInstance().addCommand(new DistanceCommand(monster));
+    }
+
+    public void showStatistics(){
+        IVisitor visitor = new StatisticsVisitor();
+        for(Monster monster : layer1.creatures)
+                monster.accept(visitor);
+    }
+
+    public void showHunting(){
+        IVisitor visitor = new HunterVisitor();
+        for(Monster monster : layer1.creatures)
+                monster.accept(visitor);
     }
 
     @Override

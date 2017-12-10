@@ -19,4 +19,8 @@ public class BlindMonster extends Monster {
     public boolean smart() {
         return false;
     }
+
+    public void accept(IVisitor visitor){
+        visitor.visit(this);
+    }
 }

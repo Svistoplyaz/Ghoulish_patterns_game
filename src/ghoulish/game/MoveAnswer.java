@@ -51,7 +51,7 @@ public class MoveAnswer implements ISubscriber {
     }
 
     public Answer moveMonster(Monster monster) {
-        Pair<Integer, Integer> cur = ai.monsterMove(monster, 1000);
+        Pair<Integer, Integer> cur = ai.monsterMove(monster, Monster.angerRange);
         if (noPlayer(monster.getY() + cur.getKey(), monster.getX() + cur.getValue())) {
             monster.move(cur.getKey(), cur.getValue());
             monsterMoved(monster);

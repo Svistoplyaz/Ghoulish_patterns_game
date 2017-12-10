@@ -88,6 +88,11 @@ public class Visualiser implements ISubscriber {
         }
 
         repaint();
+
+
+        while(!queue.isEmpty()){
+            queue.poll().execute();
+        }
     }
 
     public void drawGrey() {
@@ -103,6 +108,9 @@ public class Visualiser implements ISubscriber {
         repaint();
     }
 
+    public void addCommand(ICommand com){
+        queue.add(com);
+    }
 
     public void draw(Graphics g, TextureHolder textureHolder) {
         g.drawImage(textureHolder.getTexture(), textureHolder.getX() * Main.scale, textureHolder.getY() * Main.scale, Main.scale, Main.scale, null);
