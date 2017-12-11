@@ -22,7 +22,7 @@ public class DistanceCommand implements ICommand {
 
         int distance = (int) Math.sqrt(y * y + x * x);
         String ans = "Monster on square " + (monster.getY() + 1) + " " + (monster.getX() + 1) + " is " + distance + " squares from you";
-        System.out.println(ans);
-//        JOptionPane.showMessageDialog(null, ans);
+//        System.out.println(ans);
+        JOptionPane.showMessageDialog(null, ans);
     }
 }

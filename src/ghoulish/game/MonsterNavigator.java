@@ -1,6 +1,5 @@
 package ghoulish.game;
 
-import ghoulish.creatures.Monster;
 import ghoulish.labyrinth.Layer0;
 import javafx.util.Pair;
 
@@ -9,7 +8,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class AI {
+public class MonsterNavigator {
     private MoveAnswer moveAnswer;
     //Возможные направления для шага
     private int[][] possibleMoves = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -17,9 +16,9 @@ public class AI {
     //Путь до героя
     private int[][] path;
     //Позиция игрока
-    private int px, py;
+    public int px, py;
 
-    public AI(MoveAnswer _moveAnswer) {
+    MonsterNavigator(MoveAnswer _moveAnswer) {
         path = new int[Layer0.getInstance().getN()][Layer0.getInstance().getM()];
         moveAnswer = _moveAnswer;
     }
@@ -33,7 +32,7 @@ public class AI {
         }
     }
 
-    public void calculatePath(int _py, int _px) {
+    void calculatePath(int _py, int _px) {
         px = _px;
         py = _py;
         clearPath();
@@ -61,36 +60,36 @@ public class AI {
         }
     }
 
-    public Pair<Integer, Integer> monsterMove(Monster monster, int angerRange) {
-        int my = monster.getY();
-        int mx = monster.getX();
-        if (!monster.dynamic())
-            return new Pair<>(0, 0);
-        if (monster.blind() || path[my][mx] == -1 || Math.sqrt((px - mx) * (px - mx) + (py - my) * (py - my)) > angerRange ||
-                !moveAnswer.canMoveMonster(my + possibleMoves[path[my][mx]][0], mx + possibleMoves[path[my][mx]][1], false))
-            return randomMove(monster);
-
-        return new Pair<>(possibleMoves[path[my][mx]][0], possibleMoves[path[my][mx]][1]);
-    }
-
-    private Pair<Integer, Integer> randomMove(Monster monster) {
-        int my = monster.getY();
-        int mx = monster.getX();
-        ArrayList<Integer> possibilities = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            if (moveAnswer.canMoveMonster(my + possibleMoves[i][0], mx + possibleMoves[i][1], monster.smart())) {
-                possibilities.add(i);
-            }
-        }
-
-        int len = possibilities.size();
-        if (len == 0)
-            return new Pair<>(0, 0);
-
-        int index = possibilities.get(random.nextInt(len));
-
-        return new Pair<>(possibleMoves[index][0], possibleMoves[index][1]);
-    }
+//    public Pair<Integer, Integer> monsterMove(Monster monster, int angerRange) {
+//        int my = monster.getY();
+//        int mx = monster.getX();
+//        if (!monster.dynamic())
+//            return new Pair<>(0, 0);
+//        if (monster.blind() || path[my][mx] == -1 || Math.sqrt((px - mx) * (px - mx) + (py - my) * (py - my)) > angerRange ||
+//                !moveAnswer.canMoveMonster(my + possibleMoves[path[my][mx]][0], mx + possibleMoves[path[my][mx]][1], false))
+//            return randomMove(monster);
+//
+//        return new Pair<>(possibleMoves[path[my][mx]][0], possibleMoves[path[my][mx]][1]);
+//    }
+//
+//    private Pair<Integer, Integer> randomMove(Monster monster) {
+//        int my = monster.getY();
+//        int mx = monster.getX();
+//        ArrayList<Integer> possibilities = new ArrayList<>();
+//        for (int i = 0; i < 4; i++) {
+//            if (moveAnswer.canMoveMonster(my + possibleMoves[i][0], mx + possibleMoves[i][1], monster.smart())) {
+//                possibilities.add(i);
+//            }
+//        }
+//
+//        int len = possibilities.size();
+//        if (len == 0)
+//            return new Pair<>(0, 0);
+//
+//        int index = possibilities.get(random.nextInt(len));
+//
+//        return new Pair<>(possibleMoves[index][0], possibleMoves[index][1]);
+//    }
 
     Pair<Integer, Integer> birthPlace(int my, int mx) {
         ArrayList<Integer> possibilities = new ArrayList<>();
@@ -109,7 +108,11 @@ public class AI {
         return new Pair<>(possibleMoves[index][0], possibleMoves[index][1]);
     }
 
-    public static class Trio {
+    public int[][] getPath() {
+        return path;
+    }
+
+    private static class Trio {
         int y, x, dir;
 
         Trio(int _y, int _x, int _dir) {

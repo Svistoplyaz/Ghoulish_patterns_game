@@ -1,6 +1,5 @@
 package ghoulish.window;
 
-import ghoulish.game.KeyReader;
 import ghoulish.game.Memento;
 import ghoulish.game.State;
 import ghoulish.game.TurningStateMachine;
@@ -8,12 +7,18 @@ import ghoulish.game.TurningStateMachine;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class TurningMachineProxy implements KeyReader {
+public class TurningMachineProxy implements IHandler {
     private TurningStateMachine turningStateMachine = new TurningStateMachine();
     private ArrayList<Memento> mementos = new ArrayList<>();
+    private IHandler next;
 
     @Override
-    public void pressKey(char key) {
+    public void setNext(IHandler handler) {
+        next = handler;
+    }
+
+    @Override
+    public void handle(char key) {
         System.out.println("=========================================");
         synchronized (turningStateMachine.thread) {
             switch (key) {
@@ -59,5 +64,8 @@ public class TurningMachineProxy implements KeyReader {
                     }
             }
         }
+
+        if(next != null)
+            next.handle(key);
     }
 }

@@ -1,10 +1,12 @@
 package ghoulish.graphics;
 
 import ghoulish.Main;
+import ghoulish.Mediator;
 import ghoulish.creatures.Layer1;
 import ghoulish.creatures.Monster;
 import ghoulish.creatures.Player;
 import ghoulish.game.ISubscriber;
+import ghoulish.game.State;
 import ghoulish.labyrinth.Layer0;
 import ghoulish.labyrinth.Part;
 import ghoulish.util.TextureContainer;
@@ -12,6 +14,7 @@ import ghoulish.window.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -26,11 +29,12 @@ public class Visualiser implements ISubscriber {
     private int width = (lab.getM()) * Main.scale;
     private BufferedImage gamescreen;
     private LinkedList<ICommand> queue = new LinkedList<>();
+    public Mediator mediator;
 
     private Visualiser() {
         background = globalBackgroundRedraw();
 
-        drawFullGameScreen();
+//        drawFullGameScreen();
         Layer1.getInstance().addSub(this);
         Player.getInstance().addSub(this);
     }
@@ -81,16 +85,25 @@ public class Visualiser implements ISubscriber {
 
         int i;
         for (i = 0; i < quant / 2; i++) {
-            draw(g,TextureContainer.getTexture("resources/Creature/Player/FullHeart.png"), i * 1.0 / 2, 0.0, 0.5, 0.5);
+            draw(g, TextureContainer.getTexture("resources/Creature/Player/FullHeart.png"), i * 1.0 / 2, 0.0, 0.5, 0.5);
         }
         if (quant % 2 == 1) {
-            draw(g,TextureContainer.getTexture("resources/Creature/Player/HalfHeart.png"), i * 1.0 / 2, 0.0, 0.5, 0.5);
+            draw(g, TextureContainer.getTexture("resources/Creature/Player/HalfHeart.png"), i * 1.0 / 2, 0.0, 0.5, 0.5);
         }
+
+        g.setColor(Color.YELLOW);
+        try {
+            g.setFont(Font.createFont(Font.TRUETYPE_FONT, new File("resources/font.ttf")).deriveFont(20.0f));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        Font font = new Font("Verdana", Font.BOLD, 50);
+//        g.setFont(font);
+        g.drawString(mediator.getState().toString(), 300, 20);
 
         repaint();
 
-
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             queue.poll().execute();
         }
     }
@@ -108,7 +121,7 @@ public class Visualiser implements ISubscriber {
         repaint();
     }
 
-    public void addCommand(ICommand com){
+    public void addCommand(ICommand com) {
         queue.add(com);
     }
 
@@ -117,7 +130,7 @@ public class Visualiser implements ISubscriber {
     }
 
     public void draw(Graphics g, BufferedImage texture, double x, double y, double scaleX, double scaleY) {
-        g.drawImage(texture, (int) (x * Main.scale), (int) (y * Main.scale), (int)(scaleX*Main.scale), (int)(scaleY*Main.scale), null);
+        g.drawImage(texture, (int) (x * Main.scale), (int) (y * Main.scale), (int) (scaleX * Main.scale), (int) (scaleY * Main.scale), null);
     }
 
     public void repaint() {

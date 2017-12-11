@@ -1,5 +1,6 @@
 package ghoulish.game;
 
+import ghoulish.Mediator;
 import ghoulish.creatures.*;
 import ghoulish.graphics.DistanceCommand;
 import ghoulish.graphics.Visualiser;
@@ -10,21 +11,24 @@ import java.util.LinkedList;
 
 import static ghoulish.game.State.*;
 
-public class TurningStateMachine implements KeyReader, ISubscriber {
+public class TurningStateMachine implements ISubscriber {
     public State state;
     Player player = Player.getInstance();
     Layer1 layer1 = Layer1.getInstance();
-    MoveAnswer moveAnswer = new MoveAnswer();
     public final MyThread thread = new MyThread(this);
     public char pressedKey;
     public int turn;
     public Battle currentBattle;
+    Mediator mediator;
 
     public TurningStateMachine() {
         state = None;
         turn = 1;
         player.addSub(this);
         layer1.addSub(this);
+
+        mediator = new Mediator(this);
+        mediator.repaint();
     }
 
     private void nextTurn() {
@@ -45,11 +49,11 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
 
     public void realThreadHeart() {
         for (; ; ) {
-            Visualiser visualiser = Visualiser.getInstance();
 
             switch (state) {
                 case PlayerTurn:
                 case Battle:
+                    mediator.repaint();
                     try {
                         thread.wait();
                     } catch (Exception e) {
@@ -82,10 +86,10 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
                         int x = player.getX() + dx;
 
                         if (dy != 0 || dx != 0) {
-                            switch (moveAnswer.canMovePlayer(y, x)) {
+                            switch (mediator.canMovePlayer(y,x)) {
                                 case canMove:
                                     player.move(dy, dx);
-                                    moveAnswer.playerMoved();
+                                    mediator.playerMoved();
                                     break;
                                 case startBattle:
                                     currentBattle = new Battle(player, layer1.getMonster(y, x));
@@ -97,7 +101,7 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
 
                         skipTurn();
 
-                        visualiser.drawFullGameScreen();
+                        mediator.repaint();
                     } else {
                         System.out.println("Wut");
                     }
@@ -110,15 +114,15 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
                     while (monsters.hasNext()) {
                         Monster monster = (Monster) monsters.next();
 
-//                        try {
-//                            Thread.sleep(100);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
                         if (monster instanceof StaticMonster && turn % 5 == 0)
-                            moveAnswer.placeToBorn((StaticMonster) monster);
-                        switch (moveAnswer.moveMonster(monster)) {
+                            mediator.placeToBorn((StaticMonster) monster);
+                        switch (mediator.moveMonster(monster)) {
                             case canMove:
                                 monster.yourTurn++;
                                 break;
@@ -130,7 +134,7 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
                         if (state == Battle)
                             break;
 
-                        visualiser.drawFullGameScreen();
+                        mediator.repaint();
                     }
 
                     if (layer1.allMonstersMoved(turn)) {
@@ -140,14 +144,14 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
                     break;
 
                 case Death:
-                    visualiser.drawGrey();
+                    mediator.drawGrey();
                     break;
                 case Battle:
                     int num = Character.getNumericValue(pressedKey);
-                    if (moveAnswer.fight(currentBattle, num)) {
+                    if (mediator.fight(currentBattle, num)) {
                         changeState(MonsterTurn);
                     }
-                    visualiser.drawFullGameScreen();
+                    mediator.repaint();
             }
 
             checkDeath();
@@ -159,7 +163,6 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
             changeState(Death);
     }
 
-    @Override
     public void pressKey(char key) {
         pressedKey = key;
         thread.notifyAll();
@@ -174,7 +177,7 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
 
     public void lootTile() {
         pressedKey = 'e';
-        moveAnswer.playerTryToLoot();
+        mediator.playerTryToLoot();
         thread.notifyAll();
     }
 
@@ -205,25 +208,29 @@ public class TurningStateMachine implements KeyReader, ISubscriber {
         turn = memento.getTurn();
         state = memento.getState();
         currentBattle = memento.getBattle();
-        Visualiser.getInstance().drawFullGameScreen();
+        mediator.repaint();
     }
 
-    public void countDistance(){
-        for(Monster monster : layer1.creatures)
-            if(monster instanceof CleverMonster)
-                Visualiser.getInstance().addCommand(new DistanceCommand(monster));
+    public void countDistance() {
+        for (Monster monster : layer1.creatures)
+            if (monster instanceof CleverMonster)
+                mediator.addCommand(new DistanceCommand(monster));
     }
 
-    public void showStatistics(){
+    public void showStatistics() {
         IVisitor visitor = new StatisticsVisitor();
-        for(Monster monster : layer1.creatures)
-                monster.accept(visitor);
+        for (Monster monster : layer1.creatures)
+            monster.accept(visitor);
     }
 
-    public void showHunting(){
+    public void showHunting() {
         IVisitor visitor = new HunterVisitor();
-        for(Monster monster : layer1.creatures)
-                monster.accept(visitor);
+        for (Monster monster : layer1.creatures)
+            monster.accept(visitor);
+    }
+
+    public State getState() {
+        return state;
     }
 
     @Override

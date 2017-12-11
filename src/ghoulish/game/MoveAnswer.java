@@ -1,5 +1,6 @@
 package ghoulish.game;
 
+import ghoulish.Mediator;
 import ghoulish.creatures.*;
 import ghoulish.labyrinth.Layer0;
 import ghoulish.labyrinth.Part;
@@ -20,11 +21,13 @@ public class MoveAnswer implements ISubscriber {
     private Layer1 layer1 = Layer1.getInstance();
     private Player player = Player.getInstance();
     private Random random = new Random();
-    private AI ai = new AI(this);
+    private MonsterNavigator monsterNavigator = new MonsterNavigator(this);
+    private Mediator mediator;
 
-    MoveAnswer() {
+    public MoveAnswer(Mediator me) {
         Layer1.getInstance().addSub(this);
         Player.getInstance().addSub(this);
+        mediator = me;
     }
 
     public Answer canMovePlayer(int y, int x) {
@@ -38,20 +41,23 @@ public class MoveAnswer implements ISubscriber {
             return startBattle;
     }
 
-    public boolean noWallOrClosedDoor(int y, int x) {
+    boolean noWallOrClosedDoor(int y, int x) {
         return lab.canMoveHere(y, x) && (!lab.getPart(y, x).hasDoor() || lab.getPart(y, x).hasDoor() && lab.canMoveHere(y, x));
     }
 
-    public boolean noPlayer(int y, int x) {
+    boolean noPlayer(int y, int x) {
         return player.getY() != y || player.getX() != x;
     }
 
-    public boolean noMonster(int y, int x) {
+    private boolean noMonster(int y, int x) {
         return !layer1.hasMonster(y, x);
     }
 
     public Answer moveMonster(Monster monster) {
-        Pair<Integer, Integer> cur = ai.monsterMove(monster, Monster.angerRange);
+
+//        Pair<Integer, Integer> cur = monsterNavigator.monsterMove(monster, Monster.angerRange);
+        Pair<Integer, Integer> cur = monster.getStrategy().move(this, monsterNavigator);
+
         if (noPlayer(monster.getY() + cur.getKey(), monster.getX() + cur.getValue())) {
             monster.move(cur.getKey(), cur.getValue());
             monsterMoved(monster);
@@ -68,7 +74,7 @@ public class MoveAnswer implements ISubscriber {
     }
 
     public void playerMoved() {
-        ai.calculatePath(player.getY(), player.getX());
+        monsterNavigator.calculatePath(player.getY(), player.getX());
         int y = player.getY();
         int x = player.getX();
 
@@ -100,7 +106,7 @@ public class MoveAnswer implements ISubscriber {
         }
     }
 
-    public void monsterMoved(Monster monster) {
+    private void monsterMoved(Monster monster) {
         int y = monster.getY();
         int x = monster.getX();
 
@@ -143,7 +149,7 @@ public class MoveAnswer implements ISubscriber {
     }
 
     public void placeToBorn(StaticMonster monster) {
-        Pair<Integer, Integer> place = ai.birthPlace(monster.getY(), monster.getX());
+        Pair<Integer, Integer> place = monsterNavigator.birthPlace(monster.getY(), monster.getX());
         if (place != null) {
             StaticMonster newBorn = monster.clone();
 
