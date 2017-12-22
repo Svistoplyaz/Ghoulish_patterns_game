@@ -8,9 +8,9 @@ import java.util.Random;
 public class Battle {
     public Creature attacker;
     public Creature defender;
-    int weakSpot;
+    public int weakSpot;
 
-    Battle(Creature att, Creature def){
+    public Battle(Creature att, Creature def){
         attacker = att;
         defender = def;
 

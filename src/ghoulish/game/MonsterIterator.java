@@ -10,7 +10,7 @@ public class MonsterIterator implements Iterator{
     int cur = 0;
     ArrayList<Monster> willUse = new ArrayList<>();
 
-    MonsterIterator(int _turn, ArrayList<Monster> arr){
+    public MonsterIterator(int _turn, ArrayList<Monster> arr){
         turn = _turn;
         for(Monster monster: arr){
             if(monster.yourTurn == turn)

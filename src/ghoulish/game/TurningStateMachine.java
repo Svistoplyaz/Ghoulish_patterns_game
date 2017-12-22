@@ -5,6 +5,7 @@ import ghoulish.creatures.*;
 import ghoulish.graphics.DistanceCommand;
 import ghoulish.graphics.Visualiser;
 import ghoulish.labyrinth.Layer0;
+import ghoulish.states.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,13 +14,14 @@ import static ghoulish.game.State.*;
 
 public class TurningStateMachine implements ISubscriber {
     public State state;
-    Player player = Player.getInstance();
-    Layer1 layer1 = Layer1.getInstance();
+    public IStateForMachine curState;
+    public Player player = Player.getInstance();
+    public Layer1 layer1 = Layer1.getInstance();
     public final MyThread thread = new MyThread(this);
     public char pressedKey;
     public int turn;
     public Battle currentBattle;
-    Mediator mediator;
+    public Mediator mediator;
 
     public TurningStateMachine() {
         state = None;
@@ -31,7 +33,7 @@ public class TurningStateMachine implements ISubscriber {
         mediator.repaint();
     }
 
-    private void nextTurn() {
+    public void nextTurn() {
         turn++;
     }
 
@@ -39,15 +41,29 @@ public class TurningStateMachine implements ISubscriber {
         if (state == Death)
             return;
         state = newstate;
+        switch (state) {
+            case PlayerTurn:
+                curState = new PlayerTurn();
+                break;
+            case MonsterTurn:
+                curState = new MonsterTurn();
+                break;
+            case Battle:
+                curState = new BattleTurn();
+                break;
+            case Death:
+                curState = new DeathTurn();
+        }
 //        System.out.println(state + "");
     }
 
     public void startGame() {
         state = PlayerTurn;
+        curState = new PlayerTurn();
         thread.start();
     }
 
-    public void realThreadHeart() {
+    public void realThreadHeart1() {
         for (; ; ) {
 
             switch (state) {
@@ -153,6 +169,27 @@ public class TurningStateMachine implements ISubscriber {
                     }
                     mediator.repaint();
             }
+
+            checkDeath();
+        }
+    }
+
+    public void realThreadHeart() {
+        for (; ; ) {
+
+            switch (state) {
+                case PlayerTurn:
+                case Battle:
+                    mediator.repaint();
+                    try {
+                        thread.wait();
+                    } catch (Exception e) {
+
+                    }
+            }
+
+            if(curState != null)
+                curState.execute(this);
 
             checkDeath();
         }
